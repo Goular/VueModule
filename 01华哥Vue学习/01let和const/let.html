@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+</body>
+<script>
+    // let 和 const 声明 变量和常量
+    // 01-作用域只局限于当前代码块
+    //    {
+    //        var str = "张三"
+    //        console.log(str)
+    //
+    //        let str1 = "李四"
+    //        console.log(str1)
+    //    }
+    //    console.log("+++++++++++++"+str)
+    //    console.log("-------------"+str1)
+
+    // 02-使用let申明的变量作用域不会被提升
+    //    {
+    //        console.log(str1)
+    //        var str1 = "张三"
+    //
+    //        var str1;
+    //        console.log(str1)
+    //        str1 = "张三"
+    //    }
+    //    {
+    //        console.log(str1);
+    //        let str1= "李四"
+    //    }
+
+    // 03-在相同的作用域下不能申明相同的变量
+    //    {
+    //        var str1 = "张三";
+    //        var str1 = "李四";
+    //        console.log(str1);
+    //
+    //        let str2 = "王五";
+    //        let str2 = "赵六";
+    //        console.log(str2);
+    //    }
+
+    //04-for循环体现let的父子作用域
+    //    var btns = document.querySelectorAll("button");
+    //    for (var i = 0; i < btns.length; i++) {
+    //        btns[i].onclick = function () {
+    //            alert("点击了第" + i + "个按钮.");
+    //        }
+    //    }
+
+    //使用闭包锁住变量的值
+    //    var btns = document.querySelectorAll("button");
+    //    for (var i = 0; i < btns.length; i++) {
+    //        (function (i) {
+    //            btns[i].onclick = function () {
+    //                alert("点击了第" + i + "个按钮.");
+    //            }
+    //        })(i);
+    //    }
+
+    //使用let在for里面可以不用使用闭包的解决i显示的问题
+    //    let btns = document.querySelectorAll("button");
+    //    for (let i = 0; i < btns.length; i++) {
+    //        btns[i].onclick = function () {
+    //            alert("点击了第" + i + "个按钮.");
+    //        }
+    //    }
+
+    for (let i = 0; i < 5; i++) {
+        let i = 20;
+        console.log(i)
+    }
+</script>
+</html>
