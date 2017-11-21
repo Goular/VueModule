@@ -26,10 +26,48 @@
         ['sex', '男'],
         [obj1, '今天天气很好'],
         [obj2, '适合敲代码'],
-        [[1,2], 'hhh']
+        [[1, 2], 'hhh']
     ])
     //打印map的内容
-    console.dir(map)
+    //console.dir(map)
+
+    //1.size
+    //console.dir(map.size)
+
+    //2.set 和 get
+    //map.set("friends",["赵六","力气"]).set(["dog"],"小花");
+    //console.dir(map)
+
+    //console.log(map.get(obj1))
+    //console.log(map.get('age'))
+
+    //delete
+    //console.log(map.delete("xxxxxx"))
+    //console.log(map.delete("age"))
+
+    //has
+    //console.log(map.has(obj1))
+    //console.log(map.has('name'))
+
+    //clear
+    //console.log(map.clear())
+
+    //keys() values() entries()
+    //console.log(map.keys())
+    //console.log(map.values())
+    //console.log(map.entries())
+
+    //遍历
+    //map.forEach(function (value, key) {
+    //    console.log(value + "::" + key)
+    //})
+
+    //注意事项
+    map.set({},"呵呵呵呵")
+    map.set({},"哈哈哈哈")
+
+    console.log(map)
+    console.log({}==={})
 
 </script>
 </html>
