@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //1.创建一个集合
+    let set = new Set(['张三', '李四', '王五', '张三', '李四']);
+    console.dir(set);
+
+    //    //2.一个属性
+    //    console.log(set.size)
+    //
+    //    //3.四个方法
+    //    //add
+    //    console.dir(set.add("测试01").add("测试02"));
+    //    console.dir(set)
+    //
+    //    //delete
+    //    console.dir(set.delete("测试01"))
+    //    console.dir(set)
+    //
+    //    //clear
+    //    console.dir(set.clear())
+    //    console.dir(set)
+
+    //keys values
+    //console.log(set.keys())
+    //console.log(set.values())
+
+    let obj1 = {name: "李四"}
+    let obj2 = {name: "张三"}
+    console.dir(set.add(obj1))
+    console.dir(set.add(obj2))
+    console.log(obj1 === obj2)
+
+</script>
+</html>
