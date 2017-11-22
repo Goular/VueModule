@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p v-text="message2">112233445566778899</p>
+    <p>{{message}}112233445566778899</p>
+    <p v-html="message2">112233445566778899</p>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            message:"Hello World.",
+            message2:"<h1>Goular,Welcome</h1>"
+        }
+    });
+</script>
+</html>
