@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //    function sum(num1,num2) {
+    //        num1 = num1 || 10;
+    //        num2 = num2 || 10;
+    //        console.log(num1 + num2);
+    //    }
+    //    function sum2(num1 = 20,num2= 30) {
+    //        console.log(num1+num2)
+    //    }
+    //    sum2();
+
+
+    // 2. 参数形式 延展操作符
+    //    function sum() {
+    //        let result = 0;
+    //        for (let value of arguments) {
+    //            result += value;
+    //        }
+    //        return result;
+    //    }
+
+    function sum(name, sex,...nums)
+    {
+        let result = 0;
+        console.log(name);
+        console.log(sex);
+        for (let value of nums) {
+            result += value;
+        }
+        return result;
+    }
+
+    console.log(sum('张胜男', '男', 10, 20, 30, 50));
+</script>
+</html>

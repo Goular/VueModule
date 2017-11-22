@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 1. 模板字符串
+    // let html = '<html><head></head><body><p>今天的天气很好!</p><div>适合敲代码!</div></body></html>';
+    let str = '适合敲代码!';
+    let className = "test"
+    let html = `
+        <html>
+            <head></head>
+            <body>
+                <p>今天的天气很好!</p>
+                <div class="${className}">${str}</div>
+            </body>
+        </html>
+    `
+    console.log(html)
+</script>
+</html>
