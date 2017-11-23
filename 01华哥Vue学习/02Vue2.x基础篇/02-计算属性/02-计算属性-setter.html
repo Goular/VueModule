@@ -6,11 +6,44 @@
 </head>
 <body>
 <div id="app">
-
+    <p>{{fullName}}</p>
+    <button @click="deal()">调用计算属性的setter方法</button>
 </div>
 </body>
 <script src="js/vue.js"></script>
 <script>
+    new Vue({
+        el: '#app',
+        data: {
+            firstName: 'zhang',
+            lastName: 'sanfeng'
+        },
+        methods: {
+            deal(){
+                //这个会自动触发计算属性的setter的方法
+                this.fullName = 'Token Lily'; // 调用fullName的setter方法
+            }
+        },
+        computed: {
+            // get
+            /* fullName(){
+             return this.firstName + ' ' + this.lastName;
+             }*/
 
+            fullName: {
+                // get方法
+                get(){
+                    return this.firstName + ' ' + this.lastName;
+                },
+
+                // set方法
+                set(str){
+                    let nameArr = str.split(' ');
+                    this.firstName = nameArr[0];
+                    this.lastName = nameArr[1];
+                }
+            }
+        }
+    });
 </script>
 </html>
