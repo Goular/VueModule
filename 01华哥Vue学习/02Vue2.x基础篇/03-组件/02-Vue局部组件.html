@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-date></my-date>
+    <my-color></my-color>
+</div>
+<div id="app1">
+    <my-date></my-date>
+    <my-color></my-color>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    //1.创建组件的构造器
+    let profile = Vue.extend({
+        template: `
+            <div>
+                <input type="date"/>
+                <p>今天已经不是冬天了.</p>
+            </div>
+        `
+    });
+    let Profiles = Vue.extend({
+        template: `
+            <div>
+                 <input type="color">
+                 <p>我是一个色板!</p>
+            </div>
+        `
+    });
+    new Vue({
+        el:"#app",
+        components:{
+            'my-date':profile,
+            'my-color':Profiles
+        }
+    });
+    new Vue({
+        el:"#app1"
+    })
+</script>
+</html>
