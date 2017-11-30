@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-date></my-date>
+    <my-color></my-color>
+</div>
+<div id="app1">
+<my-date2></my-date2>
+<my-color2></my-color2>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        components: {
+            'my-date': {
+                template: `
+                    <div>
+                        <input type="date"/>
+                        <p>今天已经不是冬天了.my-date</p>
+                    </div>
+                `
+            },
+            "my-color":{
+                template:`
+                <div>
+                    <input type="color"/>
+                    <p>今天已经不是冬天了.my-color</p>
+                </div>
+                `
+            }
+        }
+    });
+    new Vue({
+        el: "#app1",
+        components: {
+            'my-date2': {
+                template: `
+                    <div>
+                        <input type="date"/>
+                        <p>今天已经不是冬天了.my-date-2</p>
+                    </div>
+                `
+            },
+            "my-color2":{
+                template:`
+                <div>
+                    <input type="color"/>
+                    <p>今天已经不是冬天了.my-color-2</p>
+                </div>
+                `
+            }
+        }
+    });
+</script>
+</html>

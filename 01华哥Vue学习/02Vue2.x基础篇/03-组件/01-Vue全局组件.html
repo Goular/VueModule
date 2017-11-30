@@ -19,22 +19,32 @@
 <script>
     //1.创建组件的构造器
     let profile = Vue.extend({
-        template:`
+        template: `
             <div>
                 <input type="date"/>
                 <p>今天已经不是冬天了.</p>
             </div>
         `
     });
-    Vue.component('my-date',profile);
+    Vue.component('my-date', profile);
     new Vue({
-        el:"#app",
-        data:{
-            msg:"今天天气很好"
+        el: "#app",
+        data: {
+            msg: "今天天气很好"
         }
     })
     new Vue({
-        el:"#app1"
+        el: "#app1",
+        components: {
+            "my-date-1": {
+                template: `
+                    <div>
+                        <input type="date"/>
+                        <p>今天已经不是冬天了.</p>
+                    </div>
+                `
+            }
+        }
     })
 </script>
 </html>
