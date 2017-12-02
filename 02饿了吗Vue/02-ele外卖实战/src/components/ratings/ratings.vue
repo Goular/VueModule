@@ -1,5 +1,5 @@
 <template>
-
+  <div>ratings</div>
 </template>
 
 <script text="text/ecmascript-6">

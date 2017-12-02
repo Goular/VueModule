@@ -1,5 +1,5 @@
 <template>
-
+  <div>sellers</div>
 </template>
 
 <script text="text/ecmascript-6">
