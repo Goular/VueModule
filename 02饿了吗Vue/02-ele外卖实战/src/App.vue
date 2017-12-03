@@ -16,8 +16,9 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import header from './components/header/header.vue'
+  const ERR_OK = 1
   export default {
     name: 'app',
     data() {
@@ -27,6 +28,21 @@
     },
     components: {
       'v-header': header
+    },
+    methods: {},
+    mounted() {
+      this.$http.get('http://www.blog.com/api/sellers').then(response => {
+        let obj = response.body
+        if (obj.status === ERR_OK) {
+          this.seller = obj.data
+          console.log(this.seller)
+        }
+        console.dir(obj)
+      }, response => {
+        // error callback
+        let obj = response.body
+        console.dir(obj)
+      })
     }
   }
 </script>
