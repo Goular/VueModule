@@ -27,12 +27,15 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "common/stylus/mixin.styl"
+
   .tab
     display: flex
     width: 100%
     height: 40px
     line-height: 40px
-    border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+    // border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+    border-1px(rgba(7, 17, 27, 0.1))
     .tab-item
       flex: 1
       text-align: center

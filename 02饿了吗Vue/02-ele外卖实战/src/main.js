@@ -11,5 +11,7 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
+// 首次进入应用的页面
+router.push('goods')
