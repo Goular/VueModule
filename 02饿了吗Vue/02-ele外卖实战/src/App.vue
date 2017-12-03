@@ -20,6 +20,11 @@
   import header from './components/header/header.vue'
   export default {
     name: 'app',
+    data() {
+      return {
+        seller: {}
+      }
+    },
     components: {
       'v-header': header
     }

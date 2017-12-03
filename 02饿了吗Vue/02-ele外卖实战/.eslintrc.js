@@ -22,6 +22,8 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // 2017-12-03 用于关闭方法名与括号间的校验
+    "space-before-function-paren": "off"
   }
 }
