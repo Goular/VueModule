@@ -101,6 +101,7 @@
             &.special
               bg-image('./img/special_1')
           .text
+            vertical-align: top
             line-height: 12px
             font-size: 10px
       .support-count
