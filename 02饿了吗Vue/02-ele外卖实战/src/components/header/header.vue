@@ -33,16 +33,21 @@
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
-          <star :size="48" :score="1.8"></star>
+          <div class="star-wrapper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
         </div>
       </div>
-      <div class="detail-close"></div>
+      <div class=" detail-close
+          ">
+      </div>
     </div>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
   import star from 'components/star/star.vue'
+
   export default {
     components: {
       star
@@ -198,6 +203,10 @@
         .detail-main
           margin-top: 64px
           padding-bottom: 64px
+          .star-wrapper
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
       .detail-close
         position: relative
         width: 32px
