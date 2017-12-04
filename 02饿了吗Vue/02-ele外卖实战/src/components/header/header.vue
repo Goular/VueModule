@@ -31,7 +31,10 @@
     </div>
     <div v-show="detailShow" class="detail">
       <div class="detail-wrapper clearfix">
-        <div class="detail-main"></div>
+        <div class="detail-main">
+          <h1 class="name">{{seller.name}}</h1>
+          <star :size="48" :score="1.8"></star>
+        </div>
       </div>
       <div class="detail-close"></div>
     </div>
@@ -39,7 +42,11 @@
 </template>
 
 <script text="text/ecmascript-6">
+  import star from 'components/star/star.vue'
   export default {
+    components: {
+      star
+    },
     props: {
       seller: {
         type: Object
