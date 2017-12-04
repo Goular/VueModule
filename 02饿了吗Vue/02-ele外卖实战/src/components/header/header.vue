@@ -49,6 +49,7 @@
   @import "../../common/stylus/mixin.styl"
   .header
     position: relative
+    overflow: hidden
     color: #ffffff
     background rgba(7, 17, 27, 0.5)
     .content-wrapper
