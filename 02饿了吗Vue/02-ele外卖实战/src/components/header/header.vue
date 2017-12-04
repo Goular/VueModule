@@ -122,6 +122,7 @@
           line-height: 24px
           font-size: 10px
     .bulletin-wrapper
+      position: relative
       height: 28px
       line-height: 28px
       padding: 0 22px 0 12px
@@ -148,6 +149,9 @@
         font-size: 10px
         right: 12px
         top: 8px
+        height: 13px
+        line-height: 13px
+        vertical-align: center
     .background
       position: absolute
       top: 0
