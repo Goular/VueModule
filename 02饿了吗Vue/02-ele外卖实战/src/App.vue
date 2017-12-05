@@ -35,9 +35,7 @@
         let obj = response.body
         if (obj.status === ERR_OK) {
           this.seller = obj.data
-          console.log(this.seller)
         }
-        console.dir(obj)
       }, response => {
         // error callback
         let obj = response.body
