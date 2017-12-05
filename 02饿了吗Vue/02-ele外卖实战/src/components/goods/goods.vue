@@ -1,7 +1,13 @@
 <template>
   <div class="goods">
     <div class="menu-wrapper">
-
+      <ul>
+        <li v-for="(item,index) in goods" class="menu-item border-1px">
+          <span clas="text">
+            <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+          </span>
+        </li>
+      </ul>
     </div>
     <div class="foods-wrapper"></div>
   </div>
@@ -17,8 +23,11 @@
     },
     data() {
       return {
-        goods: []
+        goods: Array
       }
+    },
+    created() {
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     mounted() {
       this.$http.get('http://www.blog.com/api/goods').then(response => {
