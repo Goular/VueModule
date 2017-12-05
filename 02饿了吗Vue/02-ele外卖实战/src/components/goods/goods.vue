@@ -2,9 +2,9 @@
   <div class="goods">
     <div class="menu-wrapper">
       <ul>
-        <li v-for="(item,index) in goods" class="menu-item border-1px">
-          <span clas="text">
-            <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+        <li v-for="(item, index) in goods" class="menu-item border-1px">
+          <span class="text">
+            <span v-show="item.type>0" class=" icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
         </li>
       </ul>
