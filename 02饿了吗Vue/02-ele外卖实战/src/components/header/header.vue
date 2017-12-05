@@ -66,7 +66,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import star from '../star/star.vue';
+  import star from '../star/star.vue'
   export default {
     props: {
       seller: {
@@ -76,24 +76,24 @@
     data() {
       return {
         detailShow: false
-      };
+      }
     },
     methods: {
       showDetail() {
-        this.detailShow = true;
+        this.detailShow = true
       },
       hideDetail() {
-        this.detailShow = false;
+        this.detailShow = false
       }
     },
     created() {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     components: {
       star
     }
-  };
+  }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "header.styl";
+  @import "header.styl"
 </style>
