@@ -26,8 +26,7 @@
                   <span class="count">好评{{food.rating}}</span>
                 </div>
                 <div class="price">
-                  <span class="row">¥{{food.price}}</span>
-                  <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
+                  <span class="now">¥{{food.price}}</span><span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartControl-wrapper">
 
