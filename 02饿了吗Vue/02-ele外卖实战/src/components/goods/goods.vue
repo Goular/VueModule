@@ -2,7 +2,8 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li v-for="(item, index) in goods" class="menu-item border-1px">
+        <li v-for="(item, index) in goods" class="menu-item border-1px"
+            :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
           <span class="text">
             <span v-show="item.type>0" class=" icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
@@ -11,7 +12,7 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list">
+        <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item">
@@ -26,8 +27,10 @@
                   <span class="count">好评{{food.rating}}</span>
                 </div>
                 <div class="price">
-                  <span class="now">¥{{food.price}}</span><span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
+                  <span class="now">¥{{food.price}}</span><span class="old"
+                                                                v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
+                <!--购物车模块-->
                 <div class="cartControl-wrapper">
 
                 </div>
@@ -52,7 +55,10 @@
     },
     data() {
       return {
-        goods: Array
+        goods: [],
+        listHeight: [],
+        scrollY: 0,
+        selectedFood: {}
       }
     },
     created() {
@@ -65,19 +71,65 @@
           this.goods = obj.data
           this.$nextTick(() => {
             this._initScroll()
+            this._calculateHeight()
           })
         }
       }, response => {
         // error callback
         let obj = response.body
+        console.log('---打印错误信息---')
         console.dir(obj)
+        console.log('---打印错误信息---')
       })
+    },
+    computed: {
+      currentIndex() {
+        for (let i = 0; i < this.listHeight.length; i++) {
+          let height = this.listHeight[i]
+          let height2 = this.listHeight[i + 1]
+          if (!height2 || (this.scrollY >= height && this.scrollY < height2)) {
+            return i
+          }
+        }
+        return 0
+      }
     },
     methods: {
       // 初始化滚动控件
       _initScroll() {
-        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
-        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {click: true})
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {click: true, probeType: 3})
+        // 添加foodsScroll控件二级Dom滚动事件触发
+        this.foodsScroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y))
+          console.log('---打印Y轴信息---')
+          console.dir(this.scrollY)
+          console.log('---打印Y轴信息---')
+        })
+      },
+      _calculateHeight() {
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        // 第一个item的初始高度为0
+        let height = 0
+        this.listHeight.push(height)
+        for (let i = 0; i < foodList.length; i++) {
+          let item = foodList[i]
+          height += item.clientHeight
+          this.listHeight.push(height)
+        }
+        console.log('---打印FoodsList的高度----')
+        console.dir(this.listHeight)
+        console.log('---打印FoodsList的高度----')
+      },
+      selectMenu(index, event) {
+        // 如果没有这个属性的话，说明不是better-scroll的内容，这样我们最好就是直接放弃不执行事件内容
+        if (!event._constructed) {
+          return
+        }
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        let el = foodList[index]
+        // time 滚动动画执行的时长,两秒内容到达指定的区域
+        this.foodsScroll.scrollToElement(el, 300)
       }
     }
   }
