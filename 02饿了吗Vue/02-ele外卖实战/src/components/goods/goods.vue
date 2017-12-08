@@ -102,9 +102,6 @@
         // 添加foodsScroll控件二级Dom滚动事件触发
         this.foodsScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
-          console.log('---打印Y轴信息---')
-          console.dir(this.scrollY)
-          console.log('---打印Y轴信息---')
         })
       },
       _calculateHeight() {
@@ -117,9 +114,6 @@
           height += item.clientHeight
           this.listHeight.push(height)
         }
-        console.log('---打印FoodsList的高度----')
-        console.dir(this.listHeight)
-        console.log('---打印FoodsList的高度----')
       },
       selectMenu(index, event) {
         // 如果没有这个属性的话，说明不是better-scroll的内容，这样我们最好就是直接放弃不执行事件内容
