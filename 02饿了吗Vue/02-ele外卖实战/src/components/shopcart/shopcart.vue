@@ -3,8 +3,8 @@
     <div class="content">
       <div class="content-left">
         <div class="logo-wrapper">
-          <div class="logo">
-            <i class="icon-shopping_cart"></i>
+          <div class="logo" :class="{'highlight':totalCount>0}">
+            <i class="icon-shopping_cart" :class="{'highlight':totalCount>0}"></i>
           </div>
           <div class="num">{{totalCount}}</div>
         </div>
@@ -95,10 +95,14 @@
             border-radius: 50%
             text-align: center
             background: #2b343c
+            &.highlight
+              background: rgb(0, 120, 220)
             .icon-shopping_cart
               line-height: 44px
               font-size: 24px
               color: #80858a
+              &.highlight
+                color: #fff
           .num
             position: absolute
             top: 0
