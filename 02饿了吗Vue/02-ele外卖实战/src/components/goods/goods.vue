@@ -40,11 +40,13 @@
         </li>
       </ul>
     </div>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shop-cart>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import shopCart from 'components/shopcart/shopcart'
 
   const ERR_OK = 1
   export default {
@@ -125,6 +127,9 @@
         // time 滚动动画执行的时长,两秒内容到达指定的区域
         this.foodsScroll.scrollToElement(el, 300)
       }
+    },
+    components: {
+      shopCart
     }
   }
 </script>
