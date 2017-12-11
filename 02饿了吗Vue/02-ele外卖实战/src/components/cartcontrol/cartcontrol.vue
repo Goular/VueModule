@@ -7,6 +7,8 @@
 </template>
 
 <script text="text/ecmascript-6">
+  import Vue from 'vue'
+
   export default {
     props: {
       food: {
@@ -14,12 +16,16 @@
       }
     },
     mounted() {
-      console.dir(this.food)
     },
     methods: {
-      addCart() {
+      addCart(event) {
+        if (!event._constructed) {
+          return
+        }
+        console.log('1122334')
         if (!this.food.count) {
-          this.food.count = 1
+          // this.food.count = 1 由于是新的对象属性，检测不出来，所以会存在读取不到的异常.
+          Vue.set(this.food, 'count', 1)
         } else {
           this.food.count++
         }
@@ -31,7 +37,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .cartcontrol
     font-size: 0
-    .cart-decrease .cart-add
+    .cart-decrease
       display: inline-block
       padding: 6px
       line-height: 24px
