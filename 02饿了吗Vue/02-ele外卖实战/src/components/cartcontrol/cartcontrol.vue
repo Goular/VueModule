@@ -44,12 +44,14 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .cartcontrol
     font-size: 0
-    .cart-decrease, .cart-add
+    .cart-decrease
       display: inline-block
       padding: 6px
-      line-height: 24px
-      font-size: 24px
-      color: rgb(0, 160, 220)
+      .inner
+        display: inline-block
+        line-height: 24px
+        font-size: 24px
+        color: rgb(0, 160, 220)
     .cart-count
       display: inline-block
       vertical-align: top
@@ -61,5 +63,9 @@
       color: rgb(147, 153, 159)
     .cart-add
       display: inline-block
+      padding: 6px
+      line-height: 24px
+      font-size: 24px
+      color: rgb(0, 160, 220)
 
 </style>
