@@ -32,7 +32,7 @@
                 </div>
                 <!--添加购物车商品按钮控件模块-->
                 <div class="cartControl-wrapper">
-                  <cartControl :food="food"></cartControl>
+                  <cartControl :food='food' @increment="incrementTotal"></cartControl>
                 </div>
               </div>
             </li>
@@ -40,7 +40,8 @@
         </li>
       </ul>
     </div>
-    <shop-cart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
+    <shop-cart ref="shopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
+               :min-price="seller.minPrice"></shop-cart>
   </div>
 </template>
 
@@ -138,6 +139,10 @@
         let el = foodList[index]
         // time 滚动动画执行的时长,两秒内容到达指定的区域
         this.foodsScroll.scrollToElement(el, 300)
+      },
+      incrementTotal(target) {
+        // 从子控件传递过来触发此方法
+        this.$refs.shopCart.drop(target)
       }
     },
     components: {

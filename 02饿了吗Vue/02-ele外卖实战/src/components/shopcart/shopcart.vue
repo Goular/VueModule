@@ -17,6 +17,12 @@
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <!--<transition name="drop">-->
+      <div v-for="ball in balls" v-show="ball.show" class="ball"></div>
+      <div class="inner inner-hook"></div>
+      <!--</transition>-->
+    </div>
   </div>
 </template>
 
@@ -41,6 +47,28 @@
       minPrice: {
         type: Number,
         default: 20
+      }
+    },
+    data() {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ],
+        dropBalls: []
       }
     },
     computed: {
@@ -73,6 +101,19 @@
           return 'not-enough'
         } else {
           return 'enough'
+        }
+      }
+    },
+    methods: {
+      drop(el) {
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            ball.show = true
+            ball.el = el
+            this.dropBalls.push(ball)
+            return
+          }
         }
       }
     }
@@ -167,4 +208,10 @@
           &.enough
             background: #00b43c
             color: #fff
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
 </style>

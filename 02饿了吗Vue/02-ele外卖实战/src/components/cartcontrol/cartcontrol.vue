@@ -34,6 +34,8 @@
         } else {
           this.food.count++
         }
+        // 向上父控件传递信息
+        this.$emit('increment', event.target)
       },
       decreaseCart(event) {
         if (!event._constructed) {
