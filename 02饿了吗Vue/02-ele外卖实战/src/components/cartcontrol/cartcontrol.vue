@@ -1,6 +1,6 @@
 <template>
   <div class="cartcontrol">
-    <div class="cart-decrease icon-remove_circle_outline" v-show="food.count>0"></div>
+    <div class="cart-decrease icon-remove_circle_outline" v-show="food.count>0" @click="decreaseCart"></div>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
     <div class="cart-add icon-add_circle" @click="addCart"></div>
   </div>
@@ -22,12 +22,19 @@
         if (!event._constructed) {
           return
         }
-        console.log('1122334')
         if (!this.food.count) {
           // this.food.count = 1 由于是新的对象属性，检测不出来，所以会存在读取不到的异常.
           Vue.set(this.food, 'count', 1)
         } else {
           this.food.count++
+        }
+      },
+      decreaseCart(event) {
+        if (!event._constructed) {
+          return
+        }
+        if (this.food.count) {
+          this.food.count--
         }
       }
     }
@@ -37,7 +44,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .cartcontrol
     font-size: 0
-    .cart-decrease,.cart-add
+    .cart-decrease, .cart-add
       display: inline-block
       padding: 6px
       line-height: 24px
@@ -45,6 +52,13 @@
       color: rgb(0, 160, 220)
     .cart-count
       display: inline-block
+      vertical-align: top
+      width: 12px
+      padding-top: 6px
+      line-height: 24px
+      text-align: center
+      font-size: 10px
+      color: rgb(147, 153, 159)
     .cart-add
       display: inline-block
 
