@@ -30,9 +30,9 @@
                   <span class="now">¥{{food.price}}</span><span class="old"
                                                                 v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
-                <!--购物车模块-->
+                <!--添加购物车商品按钮控件模块-->
                 <div class="cartControl-wrapper">
-
+                  <cartControl :food="food"></cartControl>
                 </div>
               </div>
             </li>
@@ -40,13 +40,14 @@
         </li>
       </ul>
     </div>
-    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ></shop-cart>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import shopCart from 'components/shopcart/shopcart'
+  import cartControl from 'components/cartcontrol/cartcontrol'
 
   const ERR_OK = 1
   export default {
@@ -129,6 +130,7 @@
       }
     },
     components: {
+      cartControl,
       shopCart
     }
   }
