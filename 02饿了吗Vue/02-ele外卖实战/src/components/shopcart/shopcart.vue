@@ -1,52 +1,57 @@
 <template>
-  <div class="shopcart">
-    <div class="content" @click="toggleList">
-      <div class="content-left">
-        <div class="logo-wrapper">
-          <div class="logo" :class="{'highlight':totalCount>0}">
-            <i class="icon-shopping_cart" :class="{'highlight':totalCount>0}"></i>
-          </div>
-          <div class="num" v-show="totalCount>0">{{totalCount}}</div>
-        </div>
-        <div class="price" :class="{'highlight':totalPrice>0}">¥{{totalPrice}}</div>
-        <div class="desc">另需配送费¥{{deliveryPrice}}元</div>
-      </div>
-      <div class="content-right">
-        <div class="pay" :class="payClass">
-          {{payDesc}}
-        </div>
-      </div>
-    </div>
-    <div class="ball-container">
-      <div v-for="ball in balls">
-        <transition name="drop" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-          <div v-show="ball.show" class="ball">
-            <div class="inner inner-hook">
+  <div>
+    <div class="shopcart">
+      <div class="content" @click="toggleList">
+        <div class="content-left">
+          <div class="logo-wrapper">
+            <div class="logo" :class="{'highlight':totalCount>0}">
+              <i class="icon-shopping_cart" :class="{'highlight':totalCount>0}"></i>
             </div>
+            <div class="num" v-show="totalCount>0">{{totalCount}}</div>
           </div>
-        </transition>
+          <div class="price" :class="{'highlight':totalPrice>0}">¥{{totalPrice}}</div>
+          <div class="desc">另需配送费¥{{deliveryPrice}}元</div>
+        </div>
+        <div class="content-right">
+          <div class="pay" :class="payClass">
+            {{payDesc}}
+          </div>
+        </div>
       </div>
+      <div class="ball-container">
+        <div v-for="ball in balls">
+          <transition name="drop" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <div v-show="ball.show" class="ball">
+              <div class="inner inner-hook">
+              </div>
+            </div>
+          </transition>
+        </div>
+      </div>
+      <transition name="fade">
+        <div class="shopcart-list" v-show="listShow">
+          <div class="list-header">
+            <h1 class="title">购物车</h1>
+            <span class="empty" @click="empty">清空</span>
+          </div>
+          <div class="list-content" ref="listcontent">
+            <ul>
+              <li class="food" v-for="food in selectFoods">
+                <span class="name">{{food.name}}</span>
+                <div class="price">
+                  <span>¥{{food.price*food.count}}</span>
+                </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food" @increment="incrementTotal"></cartcontrol>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </transition>
     </div>
     <transition name="fade">
-      <div class="shopcart-list" v-show="listShow">
-        <div class="list-header">
-          <h1 class="title">购物车</h1>
-          <span class="empty">清空</span>
-        </div>
-        <div class="list-content" ref="listcontent">
-          <ul>
-            <li class="food" v-for="food in selectFoods">
-              <span class="name">{{food.name}}</span>
-              <div class="price">
-                <span>¥{{food.price*food.count}}</span>
-              </div>
-              <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food"  @increment="incrementTotal"></cartcontrol>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div class="list-mask" v-show="listShow" @click="hideList()"></div>
     </transition>
   </div>
 </template>
@@ -193,6 +198,11 @@
       incrementTotal(target) {
         // 从子控件传递过来触发此方法
         this.drop(target)
+      },
+      empty() {
+        this.selectFoods.forEach((food) => {
+          food.count = 0
+        })
       }
     }
   }
@@ -359,4 +369,25 @@
             position: absolute
             right: 0
             bottom: 6px
+
+  .list-mask
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 40
+    backdrop-filter blur(10px)
+    -webkit-backdrop-filter blur(10px)
+    opacity 1
+    background rgba(7, 17, 27, 0.6)
+    &.fade-enter-active, &.fade-leave-active {
+      opacity 1
+      transition: all 0.5s
+      background rgba(7, 17, 27, 0.6)
+    }
+    &.fade-enter, &.fade-leave-active {
+      opacity 0
+      background rgba(7, 17, 27, 0)
+    }
 </style>
