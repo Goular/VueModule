@@ -41,7 +41,7 @@
                 <span>¥{{food.price*food.count}}</span>
               </div>
               <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food"></cartcontrol>
+                <cartcontrol :food="food"  @increment="incrementTotal"></cartcontrol>
               </div>
             </li>
           </ul>
@@ -189,6 +189,10 @@
           ball.show = false
           el.style.display = 'none'
         }
+      },
+      incrementTotal(target) {
+        // 从子控件传递过来触发此方法
+        this.drop(target)
       }
     }
   }
