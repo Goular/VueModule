@@ -27,30 +27,33 @@
         </transition>
       </div>
     </div>
-    <div class="shopcart-list" v-show="listShow">
-      <div class="list-header">
-        <h1 class="title">购物车</h1>
-        <span class="empty">清空</span>
+    <transition name="fade">
+      <div class="shopcart-list" v-show="listShow">
+        <div class="list-header">
+          <h1 class="title">购物车</h1>
+          <span class="empty">清空</span>
+        </div>
+        <div class="list-content" ref="listcontent">
+          <ul>
+            <li class="food" v-for="food in selectFoods">
+              <span class="name">{{food.name}}</span>
+              <div class="price">
+                <span>¥{{food.price*food.count}}</span>
+              </div>
+              <div class="cartcontrol-wrapper">
+                <cartcontrol :food="food"></cartcontrol>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="list-content">
-        <ul>
-          <li class="food" v-for="food in selectFoods">
-            <span class="name">{{food.name}}</span>
-            <div class="price">
-              <span>¥{{food.price*food.count}}</span>
-            </div>
-            <div class="cartcontrol-wrapper">
-              <cartcontrol :food="food"></cartcontrol>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
   import cartcontrol from 'components/cartcontrol/cartcontrol'
+  import BScroll from 'better-scroll'
 
   export default {
     props: {
@@ -122,6 +125,16 @@
           return false
         }
         let show = !this.fold
+        // 只有当show为true的时候我们才构造betterScroll,但是构造好的bscroll是不需要重复构造，只需要刷新让他回到top:0即可
+        if (show) {
+          this.$nextTick(() => {
+            if (!this.scroll) {
+              this.scroll = new BScroll(this.$refs.listcontent, {click: true})
+            } else {
+              this.scroll.refresh()
+            }
+          })
+        }
         return show
       }
     },
@@ -182,6 +195,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixin.styl"
   .shopcart
     position: fixed
     left: 0
@@ -289,4 +303,56 @@
           border-radius 50%
           background rgb(0, 160, 220)
           transition: all 0.4s linear
+    .shopcart-list
+      position: absolute
+      top: 0
+      left: 0
+      z-index: -1
+      width: 100%
+      transform translate3d(0, -100%, 0)
+      &.fade-enter-active, &.fade-leave-active
+        transition: all 0.5s
+        transform translate3d(0, -100%, 0)
+      &.fade-enter, &.fade-leave-active
+        transform translate3d(0, 0, 0)
+      .list-header
+        height: 40px
+        line-height: 40px
+        padding: 0 18px
+        background: #f3f5f7
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+        .title
+          float: left
+          font-size: 14px
+          color: rgb(7, 17, 27)
+        .empty
+          float: right
+          font-size: 12px
+          color: rgb(0, 160, 220)
+      .list-content
+        padding: 0 18px
+        max-height: 217px
+        overflow: hidden
+        background: #fff
+        .food
+          position: relative
+          padding: 12px 0
+          box-sizing: border-box
+          border-1px(rgba(7, 17, 27, 0.1))
+          .name
+            line-height: 24px
+            font-size: 14px
+            color: rgb(7, 17, 27)
+          .price
+            position: absolute
+            right: 90px
+            bottom: 12px
+            line-height: 24px
+            font-size: 14px
+            font-weight: 700
+            color: rgb(240, 20, 20)
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 6px
 </style>
