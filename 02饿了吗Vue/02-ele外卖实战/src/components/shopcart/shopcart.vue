@@ -51,7 +51,7 @@
       </transition>
     </div>
     <transition name="fade">
-      <div class="list-mask" v-show="listShow" @click="hideList()"></div>
+      <div class="list-mask" v-show="listShow" @click="hideList"></div>
     </transition>
   </div>
 </template>
@@ -203,6 +203,9 @@
         this.selectFoods.forEach((food) => {
           food.count = 0
         })
+      },
+      hideList() {
+        this.fold = true
       }
     }
   }
