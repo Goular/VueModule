@@ -1,6 +1,6 @@
 <template>
   <div class="shopcart">
-    <div class="content">
+    <div class="content" @click="toggleList">
       <div class="content-left">
         <div class="logo-wrapper">
           <div class="logo" :class="{'highlight':totalCount>0}">
@@ -27,10 +27,31 @@
         </transition>
       </div>
     </div>
+    <div class="shopcart-list" v-show="listShow">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span class="empty">清空</span>
+      </div>
+      <div class="list-content">
+        <ul>
+          <li class="food" v-for="food in selectFoods">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span>¥{{food.price*food.count}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cartcontrol :food="food"></cartcontrol>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
+  import cartcontrol from 'components/cartcontrol/cartcontrol'
+
   export default {
     props: {
       selectFoods: {
@@ -59,6 +80,9 @@
         dropBalls: [],
         fold: true
       }
+    },
+    components: {
+      cartcontrol
     },
     computed: {
       totalPrice() {
@@ -91,9 +115,23 @@
         } else {
           return 'enough'
         }
+      },
+      listShow() {
+        if (!this.totalCount) {
+          this.fold = true
+          return false
+        }
+        let show = !this.fold
+        return show
       }
     },
     methods: {
+      toggleList() {
+        if (!this.totalCount) {
+          return
+        }
+        this.fold = !this.fold
+      },
       drop(el) {
         for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i]
