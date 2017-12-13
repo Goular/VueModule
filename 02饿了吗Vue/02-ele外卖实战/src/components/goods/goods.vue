@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item">
               <div class="icon">
                 <img :src="food.icon"/>
               </div>
@@ -42,6 +42,7 @@
     </div>
     <shop-cart ref="shopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
                :min-price="seller.minPrice"></shop-cart>
+    <food :food="selectedFood"></food>
   </div>
 </template>
 
@@ -49,6 +50,7 @@
   import BScroll from 'better-scroll'
   import shopCart from 'components/shopcart/shopcart'
   import cartControl from 'components/cartcontrol/cartcontrol'
+  import food from 'components/food/food'
 
   const ERR_OK = 1
   export default {
@@ -143,11 +145,18 @@
       incrementTotal(target) {
         // 从子控件传递过来触发此方法
         this.$refs.shopCart.drop(target)
+      },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedFood = food
       }
     },
     components: {
       cartControl,
-      shopCart
+      shopCart,
+      food
     }
   }
 </script>
