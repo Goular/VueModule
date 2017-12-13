@@ -32,7 +32,7 @@
         <split></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingselect></ratingselect>
+          <ratingselect :ratings="food.ratings" :desc="desc" :select-type="selectType" :only-content="onlyContent"></ratingselect>
         </div>
       </div>
     </div>
@@ -71,6 +71,8 @@
     methods: {
       show() {
         this.showFlag = true
+        this.selectType = ALL
+        this.onlyContent = true
         // 在show方法执行的时候创建betterscroll nextTick用于刷新高度
         this.$nextTick(() => {
           if (!this.scroll) {
