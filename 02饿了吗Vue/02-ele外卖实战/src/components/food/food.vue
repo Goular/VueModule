@@ -1,7 +1,11 @@
 <template>
   <transition name="fade">
     <div v-show="showFlag" class="food">
-
+      <div class="food-content">
+        <div class="image-header">
+          <img :src="food.image">
+        </div>
+      </div>
     </div>
   </transition>
 </template>
@@ -42,5 +46,18 @@
     &.fade-enter, &.fade-leave-active
       opacity: 0
       transform: translate3d(100%, 0, 0)
+    .image-header
+      position: relative
+      width: 100%
+      height: 0
+      /* padding-top / padding-bottom 百分比会以width长度做百分比参考*/
+      /* padding-left / padding-right 百分比会以height长度做百分比参考*/
+      padding-top: 100%
+      img
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
 
 </style>
