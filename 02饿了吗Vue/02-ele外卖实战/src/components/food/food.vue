@@ -115,7 +115,7 @@
         .sell-count
           margin-right: 12px
       .price
-        font-weight 700px
+        font-weight 700
         line-height 24px
         .now
           margin-right 8px
