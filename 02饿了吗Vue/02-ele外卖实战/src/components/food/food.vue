@@ -30,6 +30,10 @@
           <p class="text">{{food.info}}</p>
         </div>
         <split></split>
+        <div class="rating">
+          <h1 class="title">商品评价</h1>
+          <ratingselect></ratingselect>
+        </div>
       </div>
     </div>
   </transition>
@@ -39,7 +43,12 @@
   import Vue from 'vue'
   import BScroll from 'better-scroll'
   import split from 'components/split/split'
+  import ratingselect from 'components/ratingselect/ratingselect'
   import cartcontrol from 'components/cartcontrol/cartcontrol'
+
+  const POSITIVE = 0
+  const NEGATIVE = 1
+  const ALL = 2
 
   export default {
     props: {
@@ -49,7 +58,14 @@
     },
     data() {
       return {
-        showFlag: false
+        showFlag: false,
+        selectType: ALL,
+        onlyContent: true,
+        desc: {
+          all: '全部',
+          positive: '推荐',
+          negative: '吐槽'
+        }
       }
     },
     methods: {
@@ -84,6 +100,7 @@
     },
     components: {
       cartcontrol,
+      ratingselect,
       split
     }
   }

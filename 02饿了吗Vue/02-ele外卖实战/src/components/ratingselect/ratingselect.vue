@@ -1,5 +1,16 @@
 <template>
-
+  <div class="ratingselect">
+    <div class="rating-type">
+      <span>{{desc.all}}</span>
+      <span>{{desc.positive}}</span>
+      <span>{{desc.negative}}</span>
+      <span></span>
+    </div>
+    <div class="switch">
+      <span class="icon-check_circle"></span>
+      <span class="text">只看到有内容的评价</span>
+    </div>
+  </div>
 </template>
 
 <script text="text/ecmascript-6">
