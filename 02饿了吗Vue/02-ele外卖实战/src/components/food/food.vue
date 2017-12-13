@@ -29,6 +29,7 @@
           <h1 class="title">商品信息</h1>
           <p class="text">{{food.info}}</p>
         </div>
+        <split></split>
       </div>
     </div>
   </transition>
