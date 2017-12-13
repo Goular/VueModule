@@ -1,19 +1,27 @@
 <template>
-  <div v-show="showFlag" class="food">
+  <transition name="fade">
+    <div v-show="showFlag" class="food">
 
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script text="text/ecmascript-6">
   export default {
+    props: {
+      food: {
+        type: Object
+      }
+    },
     data() {
       return {
         showFlag: false
       }
     },
-    props: {
-      food: {
-        type: Object
+    methods: {
+      show() {
+        this.showFlag = true
+        console.log('点击了food-show')
       }
     }
   }
@@ -28,5 +36,11 @@
     z-index: 30
     width: 100%
     background: #fff
+    &.fade-enter-active, &.fade-leave-active
+      transition: all 0.2s linear
+      transform: translate3d(0, 0, 0)
+    &.fade-enter, &.fade-leave-active
+      opacity: 0
+      transform: translate3d(100%, 0, 0)
 
 </style>

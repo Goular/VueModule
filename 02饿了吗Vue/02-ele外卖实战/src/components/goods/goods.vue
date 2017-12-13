@@ -42,7 +42,7 @@
     </div>
     <shop-cart ref="shopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
                :min-price="seller.minPrice"></shop-cart>
-    <food :food="selectedFood"></food>
+    <food :food="selectedFood" ref="food"></food>
   </div>
 </template>
 
@@ -151,6 +151,8 @@
           return
         }
         this.selectedFood = food
+        // 调用food的子组件的方法
+        this.$refs.food.show()
       }
     },
     components: {
