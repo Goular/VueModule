@@ -1,10 +1,11 @@
 <template>
   <div class="ratingselect">
     <div class="rating-type border-1px">
-      <span class="block positive" :class="{'active':selectType===2}">{{desc.all}}<span class="count">47</span></span>
-      <span class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span
+      <span @click="select(2,$event)" class="block positive" :class="{'active':selectedType===2}">{{desc.all}}<span
+        class="count">47</span></span>
+      <span @click="select(0,$event)" class="block positive" :class="{'active':selectedType===0}">{{desc.positive}}<span
         class="count">50</span></span>
-      <span class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span
+      <span @click="select(1,$event)" class="block negative" :class="{'active':selectedType===1}">{{desc.negative}}<span
         class="count">16</span></span>
     </div>
     <div class="switch" :class="{'on':onlyContent}">
@@ -45,6 +46,23 @@
             negative: '不满意'
           }
         }
+      }
+    },
+    data() {
+      return {
+        selectedType: ALL
+      }
+    },
+    mounted() {
+      this.selectedType = this.selectType
+    },
+    methods: {
+      select(type, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedType = type
+        this.$emit('ratingtype.select', event.target)
       }
     }
   }
