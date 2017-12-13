@@ -14,7 +14,9 @@
 </template>
 
 <script text="text/ecmascript-6">
+  // eslint-disable-next-line
   const POSITIVE = 0
+  // eslint-disable-next-line
   const NEGATIVE = 1
   const ALL = 2
   export default {

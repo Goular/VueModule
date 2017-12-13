@@ -46,7 +46,9 @@
   import ratingselect from 'components/ratingselect/ratingselect'
   import cartcontrol from 'components/cartcontrol/cartcontrol'
 
+  // eslint-disable-next-line
   const POSITIVE = 0
+  // eslint-disable-next-line
   const NEGATIVE = 1
   const ALL = 2
 
