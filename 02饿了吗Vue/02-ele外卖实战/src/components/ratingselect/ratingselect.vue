@@ -2,13 +2,13 @@
   <div class="ratingselect">
     <div class="rating-type border-1px">
       <span @click="select(2,$event)" class="block positive" :class="{'active':selectedType===2}">{{desc.all}}<span
-        class="count">47</span></span>
+        class="count">{{ratings.length}}</span></span>
       <span @click="select(0,$event)" class="block positive" :class="{'active':selectedType===0}">{{desc.positive}}<span
-        class="count">50</span></span>
+        class="count">{{positives.length}}</span></span>
       <span @click="select(1,$event)" class="block negative" :class="{'active':selectedType===1}">{{desc.negative}}<span
-        class="count">16</span></span>
+        class="count">{{negatives.length}}</span></span>
     </div>
-    <div class="switch" :class="{'on':onlyContent}">
+    <div @click="toggleContent" class="switch" :class="{'on':onlyedContent}">
       <span class="icon-check_circle"></span>
       <span class="text">只看到有内容的评价</span>
     </div>
@@ -50,11 +50,13 @@
     },
     data() {
       return {
-        selectedType: ALL
+        selectedType: ALL,
+        onlyedContent: false
       }
     },
     mounted() {
       this.selectedType = this.selectType
+      this.onlyedContent = this.onlyContent
     },
     methods: {
       select(type, event) {
@@ -63,6 +65,25 @@
         }
         this.selectedType = type
         this.$emit('ratingtype.select', event.target)
+      },
+      toggleContent(event) {
+        if (!event._constructed) {
+          return
+        }
+        this.onlyedContent = !this.onlyedContent
+        this.$emit('content.toggle', this.onlyedContent)
+      }
+    },
+    computed: {
+      positives() {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === POSITIVE
+        })
+      },
+      negatives() {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === NEGATIVE
+        })
       }
     }
   }
