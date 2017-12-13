@@ -21,7 +21,9 @@
         <div class="cartcontrol-wrapper">
           <cartcontrol :food="food" @increment="incrementTotal"></cartcontrol>
         </div>
-        <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
+        <transition name="buy">
+          <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
+        </transition>
       </div>
     </div>
   </transition>
@@ -163,4 +165,9 @@
       font-size: 10px
       color: #fff
       background: rgb(0, 160, 220)
+      &.buy-enter-active, &.buy-leave-active
+        transition: all 0.2s
+        opacity: 0
+      &.buy-enter, &.buy-leave-active
+        opacity: 0
 </style>
