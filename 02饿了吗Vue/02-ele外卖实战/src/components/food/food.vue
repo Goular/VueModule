@@ -18,13 +18,19 @@
             <span class="now">¥{{food.price}}</span><span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
           </div>
         </div>
+        <div class="cartcontrol-wrapper">
+          <cartcontrol :food="food" @increment="incrementTotal"></cartcontrol>
+        </div>
+        <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
       </div>
     </div>
   </transition>
 </template>
 
 <script text="text/ecmascript-6">
+  import Vue from 'vue'
   import BScroll from 'better-scroll'
+  import cartcontrol from 'components/cartcontrol/cartcontrol'
 
   export default {
     props: {
@@ -53,7 +59,22 @@
       },
       hide() {
         this.showFlag = false
+      },
+      addFirst(event) {
+        // 解决better-scroll在浏览器点击的问题
+        if (!event._constructed) {
+          return
+        }
+        // 为Vue添加不同的属性
+        Vue.set(this.food, 'count', 1)
+      },
+      incrementTotal(target) {
+        // 从子控件传递过来触发此方法
+        this.$emit('increment', event.target)
       }
+    },
+    components: {
+      cartcontrol
     }
   }
 </script>
@@ -125,4 +146,21 @@
           font-size 10px
           color rgb(147, 153, 159)
           text-decoration line-through
+    .cartcontrol-wrapper
+      position: absolute
+      right: 12px
+      bottom: 12px
+    .buy
+      position: absolute
+      right: 18px
+      bottom: 18px
+      z-index: 10
+      height: 24px
+      line-height: 24px
+      padding: 0 12px
+      box-sizing: border-box
+      border-radius: 12px
+      font-size: 10px
+      color: #fff
+      background: rgb(0, 160, 220)
 </style>

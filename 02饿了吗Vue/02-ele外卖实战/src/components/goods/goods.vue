@@ -42,7 +42,7 @@
     </div>
     <shop-cart ref="shopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
                :min-price="seller.minPrice"></shop-cart>
-    <food :food="selectedFood" ref="food"></food>
+    <food :food="selectedFood" @increment="incrementTotal" ref="food"></food>
   </div>
 </template>
 
@@ -143,6 +143,7 @@
         this.foodsScroll.scrollToElement(el, 300)
       },
       incrementTotal(target) {
+        console.log()
         // 从子控件传递过来触发此方法
         this.$refs.shopCart.drop(target)
       },
