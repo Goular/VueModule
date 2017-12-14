@@ -25,7 +25,7 @@
         </div>
       </div>
       <split></split>
-      <ratingselect :ratings="ratings" :select-type="selectType"
+      <ratingselect @contentToggle="contentToggle" @typeSelect="ratingTypeSelect" :ratings="ratings" :select-type="selectType"
                     :only-content="onlyContent"></ratingselect>
       <div class="rating-wrapper border-1px">
         <ul>
@@ -42,7 +42,7 @@
               </span>
               </div>
               <p class="text">{{rating.text}}</p>
-              <div class="recommend">
+              <div class="recommend" v-show="rating.recommend &&rating.recommend.length">
                 <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
                 <span class="item" v-for="item in rating.recommend">{{item}}</span>
               </div>
@@ -120,6 +120,18 @@
         } else {
           return type === this.selectType
         }
+      },
+      ratingTypeSelect(type) {
+        this.selectType = type
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      contentToggle(onlyContent) {
+        this.onlyContent = onlyContent
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       }
     },
     filters: {
