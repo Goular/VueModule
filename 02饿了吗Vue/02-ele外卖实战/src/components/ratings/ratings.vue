@@ -42,7 +42,7 @@
               </span>
               </div>
               <p class="text">{{rating.text}}</p>
-              <div class="recommend" >
+              <div class="recommend">
                 <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
                 <span class="item" v-for="item in rating.recommend">{{item}}</span>
               </div>
@@ -249,19 +249,17 @@
             margin-bottom 8px
           .recommend
             line-height 16px
-            .icon-thumb_up, .icon-thumb_down
-              display: inline-block
-              margin-right: 0 8px 4px 0
-              font-size: 9px
+            font-size 0
+            .icon-thumb_up, .icon-thumb_down, .item
+              display inline-block
+              margin 0 8px 4px 0
+              font-size 9px
             .icon-thumb_up
-              color: rgb(0, 160, 220)
+              color rgb(0, 160, 220)
             .icon-thumb_down
               color: rgb(147, 153, 159)
             .item
-              display: inline-block
               padding 0 6px
-              margin-right: 0 8px 4px 0
-              font-size: 9px
               border 1px solid rgba(7, 17, 27, 0.1)
               border-radius 1px
               color rgb(147, 153, 159)
