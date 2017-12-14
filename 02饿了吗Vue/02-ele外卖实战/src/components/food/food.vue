@@ -38,7 +38,7 @@
             <ul v-show="food.ratings && food.ratings.length">
               <li v-for="rating in food.ratings" class="rating-item">
                 <div class="user">
-                  <span class="name">{{ratings.username}}</span>
+                  <span class="name">{{rating.username}}</span>
                   <img class="avatar" width="12" height="12" :src="rating.avatar"/>
                 </div>
                 <div class="time">{{rating.rateTime}}</div>
