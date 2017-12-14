@@ -132,11 +132,7 @@
         }
       },
       ratingTypeSelect(type) {
-        console.log('------')
-        console.log(this.selectType)
         this.selectType = type
-        console.log(this.selectType)
-        console.log('------')
         this.$nextTick(() => {
           this.scroll.refresh()
         })
