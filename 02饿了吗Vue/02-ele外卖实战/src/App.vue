@@ -20,13 +20,20 @@
 
 <script type="text/ecmascript-6">
   import header from './components/header/header.vue'
+  import {urlParse} from 'common/js/util'
 
   const ERR_OK = 1
   export default {
     name: 'app',
     data() {
       return {
-        seller: {}
+        seller: {
+          id: (() => {
+            let queryParam = urlParse()
+            console.log(queryParam)
+            return queryParam.id
+          })()
+        }
       }
     },
     components: {
@@ -34,10 +41,13 @@
     },
     methods: {},
     mounted() {
-      this.$http.get('http://www.blog.com/api/sellers').then(response => {
+      this.$http.get('http://www.blog.com/api/sellers?id=' + this.seller.id).then(response => {
         let obj = response.body
         if (obj.status === ERR_OK) {
-          this.seller = obj.data
+          // this.seller = obj.data
+          // 由于需要合并seller传递过来的id，如果obj.data直接赋值，会覆盖掉id，所以使用ES6的对象合并
+          this.seller = Object.assign({}, this.seller, obj.data)
+          console.dir(this.seller)
         }
       }, response => {
         // error callback
