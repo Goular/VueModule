@@ -32,11 +32,13 @@
         <split></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingselect :ratings="food.ratings" :desc="desc" :select-type="selectType"
+          <ratingselect @contentToggle="contentToggle" @typeSelect="ratingTypeSelect" :ratings="food.ratings"
+                        :desc="desc"
+                        :select-type="selectType"
                         :only-content="onlyContent"></ratingselect>
           <div class="rating-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
-              <li v-show="needShow(rating.rateType,rating.text)" v-for="rating in food.ratings"
+              <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings"
                   class="rating-item border-1px">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
@@ -127,6 +129,22 @@
         } else {
           return type === this.selectType
         }
+      },
+      ratingTypeSelect(type) {
+        console.log('------')
+        console.log(this.selectType)
+        this.selectType = type
+        console.log(this.selectType)
+        console.log('------')
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      contentToggle(onlyContent) {
+        this.onlyContent = onlyContent
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       }
     },
     components: {

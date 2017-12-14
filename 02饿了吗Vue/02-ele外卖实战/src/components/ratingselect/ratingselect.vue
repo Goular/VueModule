@@ -64,14 +64,14 @@
           return
         }
         this.selectedType = type
-        this.$emit('ratingtype.select', event.target)
+        this.$emit('typeSelect', type)
       },
       toggleContent(event) {
         if (!event._constructed) {
           return
         }
         this.onlyedContent = !this.onlyedContent
-        this.$emit('content.toggle', this.onlyedContent)
+        this.$emit('contentToggle', this.onlyedContent)
       }
     },
     computed: {
