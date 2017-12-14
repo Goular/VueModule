@@ -12,12 +12,15 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import header from './components/header/header.vue'
+
   const ERR_OK = 1
   export default {
     name: 'app',
