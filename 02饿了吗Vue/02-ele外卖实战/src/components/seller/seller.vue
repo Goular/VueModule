@@ -29,7 +29,7 @@
           </li>
         </ul>
         <div class="favorite" @click="toggleFavorite($event)">
-          <i class="iconfont icon-aixin" :class="{'active':favorite}"></i>
+          <i class="iconfont icon-favorite" :class="{'active':favorite}"></i>
           <span>{{favoriteText}}</span>
         </div>
       </div>
@@ -69,10 +69,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import star from '../star/star.vue';
-  import split from '../split/split.vue';
-  import BScroll from 'better-scroll';
-  import {savaToLocal, loadFromlLocal} from '../../common/js/store';
+  import star from '../star/star.vue'
+  import split from '../split/split.vue'
+  import BScroll from 'better-scroll'
+  import {savaToLocal, loadFromlLocal} from '../../common/js/store'
   export default {
     props: {
       seller: {
@@ -86,54 +86,55 @@
     data() {
       return {
         favorite: (() => {
-          return loadFromlLocal(this.seller.id, 'favorite', false);
+          return loadFromlLocal(this.seller.id, 'favorite', false)
         })()
-      };
+      }
     },
     computed: {
       favoriteText() {
-        return this.favorite ? '已收藏' : '收藏';
+        return this.favorite ? '已收藏' : '收藏'
       }
     },
     created() {
+      // 商家图片需要计算横轴宽度，不然betterscroll不会滚动了，记得使用overflow:hidden
       if (!this.picScroll) {
         if (this.seller.pics) {
           this.$nextTick(() => {
-            let picWidth = 120;
-            let margin = 6;
-            let width = (picWidth + margin) * this.seller.pics.length - margin;
-            this.$refs.picList.style.width = width + 'px';
+            let picWidth = 120
+            let margin = 6
+            let width = (picWidth + margin) * this.seller.pics.length - margin
+            this.$refs.picList.style.width = width + 'px'
             this.picScroll = new BScroll(this.$refs.picWrapper, {
               scrollX: true,
               eventPassthrough: 'vertical'
-            });
-          });
+            })
+          })
         }
       } else {
-        this.picScroll.refresh();
+        this.picScroll.refresh()
       }
       if (!this.scroll) {
         this.$nextTick(() => {
-          this.scroll = new BScroll(this.$el, {click: true});
-        });
+          this.scroll = new BScroll(this.$el, {click: true})
+        })
       } else {
-        this.scroll.refresh();
+        this.scroll.refresh()
       }
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     methods: {
       _initScroll() {
       },
       toggleFavorite(event) {
         if (!event._constructed) {
-          return;
+          return
         }
-        this.favorite = !this.favorite;
-        savaToLocal(this.seller.id, 'favorite', this.favorite);
+        this.favorite = !this.favorite
+        savaToLocal(this.seller.id, 'favorite', this.favorite)
       }
     }
-  };
+  }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "seller.styl";
+  @import "seller.styl"
 </style>
