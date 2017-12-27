@@ -71,7 +71,7 @@
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     mounted() {
-      this.$http.get('http://www.blog.com/api/goods').then(response => {
+      this.$http.get('https://blog.jiagongwu.com/api/goods').then(response => {
         let obj = response.body
         if (obj.status === ERR_OK) {
           this.goods = obj.data

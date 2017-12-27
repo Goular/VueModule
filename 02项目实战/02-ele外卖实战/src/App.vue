@@ -41,7 +41,7 @@
     },
     methods: {},
     mounted() {
-      this.$http.get('http://www.blog.com/api/sellers?id=' + this.seller.id).then(response => {
+      this.$http.get('https://blog.jiagongwu.com/api/sellers?id=' + this.seller.id).then(response => {
         let obj = response.body
         if (obj.status === ERR_OK) {
           // this.seller = obj.data

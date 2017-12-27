@@ -89,7 +89,7 @@
       }
     },
     mounted() {
-      this.$http.get('http://www.blog.com/api/ratings').then(response => {
+      this.$http.get('https://blog.jiagongwu.com/api/ratings').then(response => {
         let obj = response.body
         if (obj.status === ERR_OK) {
           this.$nextTick(() => {
