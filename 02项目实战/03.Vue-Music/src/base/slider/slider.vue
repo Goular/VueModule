@@ -1,6 +1,6 @@
 <template>
-  <div class="slider">
-    <div class="slider-group">
+  <div class="slider" ref="slider">
+    <div class="slider-group" ref="sliderGroup">
       <!--插槽用于调用组件的父组件可以添加先关的内容-->
       <slot></slot>
     </div>
@@ -9,6 +9,9 @@
 </template>
 
 <script text="text/ecmascript-6">
+  import BScroll from 'better-scroll'
+  import {addClass} from '../../common/js/dom'
+
   export default {
     props: {
       loop: {
@@ -24,7 +27,41 @@
         default: 4000
       }
     },
-
+    mounted() {
+      setTimeout(() => {
+        this._setSliderWidth()
+        this._initSlider()
+      }, 20)
+    },
+    methods: {
+      _setSliderWidth() {
+        this.children = this.$refs.sliderGroup.children
+        let width = 0
+        let sliderWidth = this.$refs.slider.clientWidth
+        for (let i = 0; i < this.children.length; i++) {
+          let child = this.children[i]
+          addClass(child, 'slider-item')
+          child.style.width = sliderWidth + 'px'
+          width += sliderWidth
+        }
+        // 有可以横向滚动，在初始化的时候，需要保证右手边的图也要加载成功，所以我们需要两个宽度的距离，保证第二幅图显示正常
+        if (this.loop) {
+          width += 2 * sliderWidth
+        }
+        this.$refs.sliderGroup.style.width = width + 'px'
+      },
+      _initSlider() {
+        this.slider = new BScroll(this.$refs.slider, {
+          scrollX: true,
+          scrollY: false,
+          momentum: false,
+          snap: true,
+          snapLoop: this.loop,
+          snapThreshold: 0.3,
+          snapSpeed: 400
+        })
+      }
+    }
   }
 </script>
 
