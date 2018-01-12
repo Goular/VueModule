@@ -14,7 +14,24 @@
   import BScroll from 'better-scroll'
 
   export default {
-    name: 'slider'
+    name: 'slider',
+    props: {
+      // 是否进行循环播放
+      loop: {
+        type: Boolean,
+        default: true
+      },
+      // 进入的时候是否自动播放
+      autoPlay: {
+        type: Boolean,
+        default: true
+      },
+      // 轮播间隔
+      interval: {
+        type: Number,
+        default: 4000
+      }
+    }
   }
 </script>
 
