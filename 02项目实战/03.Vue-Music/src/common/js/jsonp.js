@@ -1,10 +1,10 @@
-import originJSONP from 'jsonp'
+import orginJSONP from 'jsonp'
 
 // jsonp执行，使用Promise进行封装,减少回调
 export default function jsonp(url, data, option) {
   url += (url.indexOf('?') < 0 ? '?' : '&') + param(data)
   return new Promise((resolve, reject) => {
-    originJSONP(url, option, (err, data) => {
+    orginJSONP(url, option, (err, data) => {
       if (!err) {
         resolve(data)
       } else {
@@ -14,14 +14,13 @@ export default function jsonp(url, data, option) {
   })
 }
 
-// 参数拼接 -1
+// 参数拼接
 function param(data) {
   let url = ''
   for (var k in data) {
     let value = data[k] !== undefined ? data[k] : ''
-    // 模板字符串
     url += `&${k}=${encodeURIComponent(value)}`
   }
-  //需要将第一个的&去除
+  // 需要将第一个的&去除
   return url ? url.substring(1) : ''
 }
