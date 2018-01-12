@@ -1,18 +1,21 @@
 <template>
   <div class="slider" ref="slider">
     <div class="slider-group" ref="sliderGroup">
-      <!--插槽用于调用组件的父组件可以添加先关的内容-->
-      <slot></slot>
+      <slot>
+      </slot>
     </div>
-    <div class="dots"></div>
+    <div class="dots">
+      <span class="dot" :class="{active: currentPageIndex === index }" v-for="(item, index) in dots"></span>
+    </div>
   </div>
 </template>
 
-<script text="text/ecmascript-6">
+<script type="text/ecmascript-6">
+  import {addClass} from 'common/js/dom'
   import BScroll from 'better-scroll'
-  import {addClass} from '../../common/js/dom'
 
   export default {
+    name: 'slider',
     props: {
       loop: {
         type: Boolean,
@@ -27,25 +30,56 @@
         default: 4000
       }
     },
+    data() {
+      return {
+        dots: [],
+        currentPageIndex: 0
+      }
+    },
     mounted() {
       setTimeout(() => {
         this._setSliderWidth()
+        this._initDots()
         this._initSlider()
+
+        if (this.autoPlay) {
+          this._play()
+        }
       }, 20)
+
+      window.addEventListener('resize', () => {
+        if (!this.slider) {
+          return
+        }
+        this._setSliderWidth(true)
+        this.slider.refresh()
+      })
+    },
+    activated() {
+      if (this.autoPlay) {
+        this._play()
+      }
+    },
+    deactivated() {
+      clearTimeout(this.timer)
+    },
+    beforeDestroy() {
+      clearTimeout(this.timer)
     },
     methods: {
-      _setSliderWidth() {
+      _setSliderWidth(isResize) {
         this.children = this.$refs.sliderGroup.children
+
         let width = 0
         let sliderWidth = this.$refs.slider.clientWidth
         for (let i = 0; i < this.children.length; i++) {
           let child = this.children[i]
           addClass(child, 'slider-item')
+
           child.style.width = sliderWidth + 'px'
           width += sliderWidth
         }
-        // 有可以横向滚动，在初始化的时候，需要保证右手边的图也要加载成功，所以我们需要两个宽度的距离，保证第二幅图显示正常
-        if (this.loop) {
+        if (this.loop && !isResize) {
           width += 2 * sliderWidth
         }
         this.$refs.sliderGroup.style.width = width + 'px'
@@ -60,6 +94,36 @@
           snapThreshold: 0.3,
           snapSpeed: 400
         })
+
+        this.slider.on('scrollEnd', () => {
+          let pageIndex = this.slider.getCurrentPage().pageX
+          if (this.loop) {
+            pageIndex -= 1
+          }
+          this.currentPageIndex = pageIndex
+
+          if (this.autoPlay) {
+            this._play()
+          }
+        })
+
+        this.slider.on('beforeScrollStart', () => {
+          if (this.autoPlay) {
+            clearTimeout(this.timer)
+          }
+        })
+      },
+      _initDots() {
+        this.dots = new Array(this.children.length)
+      },
+      _play() {
+        let pageIndex = this.currentPageIndex + 1
+        if (this.loop) {
+          pageIndex += 1
+        }
+        this.timer = setTimeout(() => {
+          this.slider.goToPage(pageIndex, 0, 400)
+        }, this.interval)
       }
     }
   }
