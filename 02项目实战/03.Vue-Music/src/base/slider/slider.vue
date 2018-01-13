@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6">
   import {addClass} from 'common/js/dom'
-  import BScroll from 'better-scroll'
+  // import BScroll from 'better-scroll'
 
   export default {
     name: 'slider',
@@ -30,6 +30,38 @@
       interval: {
         type: Number,
         default: 4000
+      }
+    },
+    mounted() {
+      // 一般网络访问就是17秒，我们就设定为20s
+      setTimeout(() => {
+        this._setSliderWidth()
+        this._initSlider()
+      }, 20)
+    },
+    methods: {
+      _setSliderWidth() {
+        this.children = this.$refs.sliderGroup.children
+        // 默认设定整个滚动控件的宽度为0
+        let width = 0
+        // 设置当前slider的宽度为单位宽度
+        let sliderWidth = this.$refs.slider.clientWidth
+        for (let i = 0; i < this.children.length; i++) {
+          // 为添加children item的样式
+          let child = this.children[i]
+          addClass(child, 'slider-item')
+          // 添加样式
+          child.style.width = sliderWidth + 'px'
+          // 为控件延长长度
+          width += sliderWidth
+        }
+        if (this.loop) {
+          width += 2 * sliderWidth
+        }
+        this.$refs.sliderGroup.style.width = width + 'px'
+      },
+      _initSlider() {
+
       }
     }
   }
