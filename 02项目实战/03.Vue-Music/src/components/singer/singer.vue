@@ -48,7 +48,7 @@
           if (!map[key]) {
             map[key] = {
               title: key,
-              item: []
+              items: []
             }
           }
           map[key].items.push(new Singer({
