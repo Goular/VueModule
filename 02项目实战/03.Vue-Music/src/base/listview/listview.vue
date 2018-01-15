@@ -3,6 +3,7 @@
           :data="data"
           ref="listview"
           :listenScroll="listenScroll"
+          :probeType = 'probeType'
           @scroll="scroll">
     <ul>
       <li v-for="group in data" class="list-group" ref="listGroup">
@@ -17,7 +18,10 @@
     </ul>
     <div class="list-shortcut" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
       <ul>
-        <li v-for="(item,index) in shortcutList" class="item" :data-index="index">
+        <li v-for="(item,index) in shortcutList"
+            class="item"
+            :data-index="index"
+            :class="{'current':currentIndex===index}">
           {{item}}
         </li>
       </ul>
@@ -37,6 +41,7 @@
       this.touch = {}
       this.listenScroll = true
       this.listHeight = []
+      this.probeType = 3
     },
     data() {
       return {
