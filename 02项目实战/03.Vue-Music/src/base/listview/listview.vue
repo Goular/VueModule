@@ -85,6 +85,7 @@
         // console.dir(pos.y)
       },
       _scrollTo(index) {
+        this.scrollY = -this.listHeight[index]
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
       },
       _calculateHeight() {
