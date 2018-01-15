@@ -26,7 +26,7 @@
         </li>
       </ul>
     </div>
-    <div class="list-fixed">
+    <div class="list-fixed" v-show="fixedTitle" ref="fixed">
       <h1 class="fixed-title">{{fixedTitle}}</h1>
     </div>
   </scroll>
@@ -38,6 +38,7 @@
 
   // 样式列表item默认的为18px
   const ANCHOR_HEIGHT = 18
+  const TITLE_HEIGHT = 30
 
   export default {
     created() {
@@ -49,7 +50,9 @@
     data() {
       return {
         scrollY: -1,
-        currentIndex: 0
+        currentIndex: 0,
+        // 用于顶置位置的偏移
+        diff: -1
       }
     },
     components: {Scroll},
@@ -66,6 +69,10 @@
         })
       },
       fixedTitle() {
+        // 如果从第一个往上拉，那么显示的固定标题的内容为空，同时不显示fixedtitle的框
+        if (this.scrollY > 0) {
+          return ''
+        }
         return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
       }
     },
@@ -134,11 +141,21 @@
           let height2 = listHeight[i + 1]
           if (-newY >= height1 && -newY < height2) {
             this.currentIndex = i
+            this.diff = height2 + newY
             return
           }
         }
         // 当滚动到底部,且-newY大于最后一个元素的上限
         this.currentIndex = listHeight.length - 2
+      },
+      diff(newVal) {
+        let fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
+        if (this.fixedTop === fixedTop) {
+          return
+        }
+        this.fixedTop = fixedTop
+        // 顶部的fix向上移动动画
+        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
     }
   }
