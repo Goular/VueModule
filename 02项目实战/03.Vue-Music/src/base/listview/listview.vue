@@ -3,7 +3,7 @@
           :data="data"
           ref="listview"
           :listenScroll="listenScroll"
-          :probeType = 'probeType'
+          :probeType='probeType'
           @scroll="scroll">
     <ul>
       <li v-for="group in data" class="list-group" ref="listGroup">
@@ -107,15 +107,22 @@
       },
       scrollY(newY) {
         const listHeight = this.listHeight
-        for (let i = 0; i < listHeight.length; i++) {
+        // 当滚动到顶部，newY>0
+        if (newY > 0) {
+          this.currentIndex = 0
+          return
+        }
+        // 当在中间部分滚动
+        for (let i = 0; i < listHeight.length - 1; i++) {
           let height1 = listHeight[i]
           let height2 = listHeight[i + 1]
-          if (!height2 || (-newY > height1 && -newY < height2)) {
+          if (-newY >= height1 && -newY < height2) {
             this.currentIndex = i
             return
           }
         }
-        this.currentIndex = 0
+        // 当滚动到底部,且-newY大于最后一个元素的上限
+        this.currentIndex = listHeight.length - 2
       }
     }
   }
