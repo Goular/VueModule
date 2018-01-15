@@ -29,12 +29,16 @@
     <div class="list-fixed" v-show="fixedTitle" ref="fixed">
       <h1 class="fixed-title">{{fixedTitle}}</h1>
     </div>
+    <div v-show="!data.length" class="loading-container">
+      <loading></loading>
+    </div>
   </scroll>
 </template>
 
 <script text="text/ecmascript-6">
   import Scroll from '../scroll/scroll'
   import {getData} from '../../common/js/dom'
+  import Loading from "../loading/loading";
 
   // 样式列表item默认的为18px
   const ANCHOR_HEIGHT = 18
@@ -55,7 +59,10 @@
         diff: -1
       }
     },
-    components: {Scroll},
+    components: {
+      Loading,
+      Scroll
+    },
     props: {
       data: {
         type: Array,
