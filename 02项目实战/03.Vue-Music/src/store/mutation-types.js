@@ -1,3 +1,2 @@
-// 字符串常量
-export const SET_SINGER = 'SET_SINGER'
-
+// // 字符串常量
+// export const SET_SINGER = 'SET_SINGER'

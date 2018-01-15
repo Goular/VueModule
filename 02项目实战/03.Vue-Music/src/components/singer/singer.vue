@@ -10,7 +10,7 @@
   import {ERR_OK} from '../../api/config'
   import Singer from 'common/js/singer'
   import Listview from 'base/listview/listview'
-  import {mapMutations} from 'vuex'
+  // import {mapMutations} from 'vuex'
 
   const HOT_NAME = '热门'
   const HOT_SINGER_LEN = 10
@@ -81,8 +81,7 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0)
         })
         return hot.concat(ret)
-      },
-      components: {}
+      }
     }
   }
 </script>
