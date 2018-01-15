@@ -38,7 +38,7 @@
 <script text="text/ecmascript-6">
   import Scroll from '../scroll/scroll'
   import {getData} from '../../common/js/dom'
-  import Loading from "../loading/loading";
+  import Loading from '../loading/loading'
 
   // 样式列表item默认的为18px
   const ANCHOR_HEIGHT = 18
