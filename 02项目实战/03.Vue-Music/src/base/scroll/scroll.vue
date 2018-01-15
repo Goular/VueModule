@@ -87,6 +87,7 @@
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
       },
       scrollToElement() {
+        // 第二个参数的意思是是否需要过渡动画的时间
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }
     },

@@ -64,6 +64,7 @@
         this._scrollTo(anchorIndex)
       },
       _scrollTo(index) {
+
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
       }
     }
