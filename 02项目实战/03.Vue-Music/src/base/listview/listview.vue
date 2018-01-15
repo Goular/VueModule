@@ -88,7 +88,7 @@
         if (!index && index !== 0) {
           return
         }
-        //做边界处理，因为index<0和index>list.length都是不被允许的.
+        // 做边界处理，因为index<0和index>list.length都是不被允许的.
         if (index < 0) {
           index = 0
         } else if (index > this.listHeight.length - 2) {
