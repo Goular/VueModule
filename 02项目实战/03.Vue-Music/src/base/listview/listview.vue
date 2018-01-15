@@ -85,6 +85,15 @@
         // console.dir(pos.y)
       },
       _scrollTo(index) {
+        if (!index && index !== 0) {
+          return
+        }
+        //做边界处理，因为index<0和index>list.length都是不被允许的.
+        if (index < 0) {
+          index = 0
+        } else if (index > this.listHeight.length - 2) {
+          index = this.listHeight.length - 2
+        }
         this.scrollY = -this.listHeight[index]
         this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
       },
