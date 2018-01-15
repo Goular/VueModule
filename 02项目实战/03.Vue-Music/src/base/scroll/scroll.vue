@@ -17,6 +17,7 @@
         type: Boolean,
         default: true
       },
+      // 判断是否需要监听滚动的时间
       listenScroll: {
         type: Boolean,
         default: false
