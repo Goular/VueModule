@@ -6,6 +6,8 @@
 
 <script text="text/ecmascript-6">
   import {mapGetters} from 'vuex'
+  import {getSingerDetail} from '../../api/singer'
+  import {ERR_OK} from '../../api/config'
 
   export default {
     computed: {
@@ -14,7 +16,21 @@
       ])
     },
     created() {
-      console.log(this.singer)
+      this._getDetail()
+    },
+    methods: {
+      _getDetail() {
+        // 处理边界的常用手段,如果当前页面获取不到页面的singer，那么我们就退出当前的页面,返回到singer页面
+        if (!this.singer.id) {
+          this.$router.push('/singer')
+          return
+        }
+        getSingerDetail(this.singer.id).then((res) => {
+          if (res.code === ERR_OK) {
+            console.log(res.data.list)
+          }
+        })
+      }
     }
   }
 </script>
