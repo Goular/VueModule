@@ -8,6 +8,7 @@
   import {mapGetters} from 'vuex'
   import {getSingerDetail} from '../../api/singer'
   import {ERR_OK} from '../../api/config'
+  import {createSong} from '../../common/js/Song'
 
   export default {
     computed: {
@@ -27,11 +28,21 @@
         }
         getSingerDetail(this.singer.id).then((res) => {
           if (res.code === ERR_OK) {
-            console.log('------')
-            console.log(res.data.list)
-            console.log('------')
+            this.songs = this._normalizeSongs(res.data.list)
+            console.log(this.songs)
           }
         })
+      },
+      // 复用重复代码
+      _normalizeSongs(list) {
+        let ret = []
+        list.forEach((item) => {
+          let {musicData} = item
+          if (musicData.songid && musicData.albummid) {
+            ret.push(createSong(musicData))
+          }
+        })
+        return ret
       }
     }
   }
