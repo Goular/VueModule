@@ -1,4 +1,4 @@
-// 创建歌手对象
+// 创建歌手对象 Java Bean形式
 export default class Singer {
   constructor({id, name}) {
     this.id = id
