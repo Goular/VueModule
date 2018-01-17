@@ -21,6 +21,9 @@
   import Scroll from 'base/scroll/scroll'
   import SongList from 'base/song-list/song-list'
 
+  // 让滚动的layer不超过顶部下面的40px，用于留空,这样会好看一点
+  const RESERVED_HEIGHT = 40
+
   export default {
     data() {
       return {
@@ -51,12 +54,21 @@
       this.listenScroll = true
     },
     mounted() {
+      this.imageHeight = this.$refs.bgImage.clientHeight
+      this.minTranslateY = -this.imageHeight + RESERVED_HEIGHT
       // 统一计算顶部背景图片的高度
       this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
     methods: {
       scroll(pos) {
         this.scrollY = pos.y
+      }
+    },
+    watch: {
+      scrollY(newY) {
+        let tranlateY = Math.max(this.minTranslateY, newY)
+        this.$refs.layer.style[`transform`] = `translate3d(0,${tranlateY}px,0)`
+        this.$refs.layer.style[`webkitTransform`] = `translate3d(0,${tranlateY}px,0)`
       }
     },
     components: {
