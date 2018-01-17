@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="singer-detail"></div>
+    <music-list :title="title" :songs="songs" :bg-image="bgImage"></music-list>
   </transition>
 </template>
 
@@ -9,15 +9,30 @@
   import {getSingerDetail} from '../../api/singer'
   import {ERR_OK} from '../../api/config'
   import {createSong} from '../../common/js/Song'
+  import MusicList from 'components/music-list/music-list'
 
   export default {
+    components: {
+      MusicList
+    },
     computed: {
+      title() {
+        return this.singer.name
+      },
+      bgImage() {
+        return this.singer.avatar
+      },
       ...mapGetters([
         'singer'
       ])
     },
     created() {
       this._getDetail()
+    },
+    data() {
+      return {
+        songs: []
+      }
     },
     methods: {
       _getDetail() {
