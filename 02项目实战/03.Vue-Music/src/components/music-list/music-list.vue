@@ -20,9 +20,12 @@
 <script text="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
   import SongList from 'base/song-list/song-list'
+  import {prefixStyle} from '../../common/js/dom'
 
   // 让滚动的layer不超过顶部下面的40px，用于留空,这样会好看一点
   const RESERVED_HEIGHT = 40
+  const transform = prefixStyle('transform')
+  const backdrop = prefixStyle('backdrop-filter')
 
   export default {
     data() {
@@ -70,8 +73,7 @@
         let zIndex = 0
         let scale = 1
         let blur = 0
-        this.$refs.layer.style[`transform`] = `translate3d(0,${tranlateY}px,0)`
-        this.$refs.layer.style[`webkitTransform`] = `translate3d(0,${tranlateY}px,0)`
+        this.$refs.layer.style[transform] = `translate3d(0,${tranlateY}px,0)`
         const percent = Math.abs(newY / this.imageHeight)
         if (newY > 0) {
           //  即往下拉的时候，进行图片的放大
@@ -81,8 +83,7 @@
           blur = Math.min(20 * percent, 20)
         }
         // 歌手页面进行高斯模糊
-        this.$refs.filter.style['backdrop-filter'] = `blur(${blur}px)`
-        this.$refs.filter.style['webkitBackdrop-filter'] = `blur(${blur}px)`
+        this.$refs.filter.style[backdrop] = `blur(${blur}px)`
         if (newY < this.minTranslateY) {
           zIndex = 10
           this.$refs.bgImage.style.paddingTop = 0
@@ -92,8 +93,7 @@
           this.$refs.bgImage.style.height = 0
         }
         this.$refs.bgImage.style.zIndex = zIndex
-        this.$refs.bgImage.style[`transform`] = `scale(${scale})`
-        this.$refs.bgImage.style[`webkitTransform`] = `scale(${scale})`
+        this.$refs.bgImage.style[transform] = `scale(${scale})`
       }
     },
     components: {
