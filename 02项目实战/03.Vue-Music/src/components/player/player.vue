@@ -4,8 +4,7 @@
                 @enter="enter"
                 @after-enter="afterEnter"
                 @leave="leave"
-                @after-leave="afterLeave"
-    >
+                @after-leave="afterLeave">
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%" :src="currentSong.image"/>
@@ -63,6 +62,7 @@
         </div>
       </div>
     </transition>
+    <audio ref="audio" :src="currentSong.url"></audio>
   </div>
 </template>
 
@@ -150,6 +150,15 @@
       ...mapMutations({
         setFullScreen: 'SET_FULL_SCREEN'
       })
+    },
+    watch: {
+      // 当歌曲的路径发生数据变化时，我们进行音乐的播放
+      currentSong() {
+        // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
+        this.$nextTick(() => {
+          this.$refs.audio.play()
+        })
+      }
     }
   }
 </script>

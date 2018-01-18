@@ -22,7 +22,7 @@ export function createSong(musicData) {
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
     // url: `http://ws.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=46`
     // 下面这个地址会经常变，只能到QQ音乐去抓这个网址的规律回来，再去拼接
-    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?guid=1375586099&vkey=681B2E71D8CBAA21C702737747807C821E0F7C021CABE10DB40A614B0CA4B2549CB8B5271BE24F2F0E4E2324DD9096E981EE759232EAC16F`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?guid=1375586099&vkey=5BF6AB9DDC4E4F233D0DC9014037575624C37BEE955F32C77E6DA7EF9EDED80BF65D4EFD0181494518223E1E6DFA62CFFE5E34CC31C14CB3`
   })
 }
 
