@@ -17,7 +17,7 @@
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list"
             ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
         <loading></loading>
@@ -31,6 +31,7 @@
   import SongList from 'base/song-list/song-list'
   import {prefixStyle} from '../../common/js/dom'
   import Loading from '../../base/loading/loading'
+  import {mapActions} from 'vuex'
 
   // 让滚动的layer不超过顶部下面的40px，用于留空,这样会好看一点
   const RESERVED_HEIGHT = 40
@@ -78,7 +79,17 @@
       },
       back() {
         this.$router.back()
-      }
+      },
+      selectItem(item, index) {
+        // 这里为什么没有用item，因为组件通用性来说，item是需要传递的，但是这里item的使用是没有作用的，所以item是被忽略的
+        this.selectPlay({
+          list: this.songs,
+          index
+        })
+      },
+      ...mapActions([
+        'selectPlay'
+      ])
     },
     watch: {
       scrollY(newY) {

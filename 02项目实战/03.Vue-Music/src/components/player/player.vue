@@ -1,12 +1,22 @@
 <template>
-  <div class="player">
-    <div class="normal-player">播放器</div>
-    <div class="mini-player"></div>
+  <div class="player" v-show="playList.length>0">
+    <div class="normal-player" v-show="fullScreen">播放器</div>
+    <div class="mini-player" v-show="!fullScreen"></div>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
-  export default {}
+  import {mapGetters} from 'vuex'
+
+  export default {
+    props: {},
+    computed: {
+      ...mapGetters([
+        'fullScreen',
+        'playList'
+      ])
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
