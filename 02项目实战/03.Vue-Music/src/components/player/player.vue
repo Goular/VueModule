@@ -173,7 +173,7 @@
           this.$refs.audio.play()
         })
       },
-      play(newPlaying) {
+      playing(newPlaying) {
         this.$nextTick(() => {
           const audio = this.$refs.audio
           newPlaying ? audio.play() : audio.pause()
