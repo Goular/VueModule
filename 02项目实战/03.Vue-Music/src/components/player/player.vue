@@ -23,19 +23,19 @@
       <div class="bottom">
         <div class="operators">
           <div class="icon i-left">
-            <i :class="icon-sequence"></i>
+            <i class="icon-sequence"></i>
           </div>
           <div class="icon i-left">
-            <i :class="icon-prev"></i>
+            <i class="icon-prev"></i>
           </div>
           <div class="icon i-center">
-            <i :class="icon-play"></i>
+            <i class="icon-play"></i>
           </div>
           <div class="icon i-right">
-            <i :class="icon-next"></i>
+            <i class="icon-next"></i>
           </div>
           <div class="icon i-right">
-            <i :class="icon-not-favorite"></i>
+            <i class="icon-not-favorite"></i>
           </div>
         </div>
       </div>
