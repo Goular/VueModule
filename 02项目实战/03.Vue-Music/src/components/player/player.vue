@@ -62,7 +62,7 @@
         </div>
       </div>
     </transition>
-    <audio ref="audio" :src="currentSong.url"></audio>
+    <audio autoplay="autoplay" ref="audio" :src="currentSong.url"></audio>
   </div>
 </template>
 
