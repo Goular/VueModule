@@ -84,6 +84,7 @@
   import ProgressBar from 'base/progress-bar/progress-bar'
   import ProgressCircle from 'base/progress-circle/progress-circle'
   import {playMode} from '../../common/js/config'
+  import {shuffle} from '../../common/js/utils'
 
   const transform = prefixStyle('transform')
 
@@ -121,7 +122,8 @@
         'currentSong',
         'playing',
         'currentIndex',
-        'mode'
+        'mode',
+        'sequenceList'
       ])
     },
     methods: {
@@ -230,7 +232,8 @@
         setFullScreen: 'SET_FULL_SCREEN',
         setPlayingState: 'SET_PLAYING_STATE',
         setCurrentIndex: 'SET_CURRENT_INDEX',
-        setPlayMode: 'SET_PLAY_MODE'
+        setPlayMode: 'SET_PLAY_MODE',
+        setPlayList: 'SET_PLAYLIST'
       }),
       togglePlaying() {
         if (!this.songReady) {
@@ -258,11 +261,29 @@
       changeMode() {
         const mode = (this.mode + 1) % 3
         this.setPlayMode(mode)
+        let list = null
+        if (mode === playMode.random) {
+          list = shuffle(this.sequenceList)
+        } else {
+          list = this.sequenceList
+        }
+        this.resetCurrentIndex(list)
+        this.setPlayList(list)
+      },
+      resetCurrentIndex(list) {
+        let index = list.findIndex((item) => {
+          return item.id === this.currentSong.id
+        })
+        this.setCurrentIndex(index)
       }
     },
     watch: {
       // 当歌曲的路径发生数据变化时，我们进行音乐的播放
-      currentSong() {
+      currentSong(newSong, oldSong) {
+        // 当新歌与旧歌音乐相同时，不再调用重新唱歌的选项
+        if (newSong.id === oldSong.id) {
+          return
+        }
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         this.$nextTick(() => {
           this.$refs.audio.play()
