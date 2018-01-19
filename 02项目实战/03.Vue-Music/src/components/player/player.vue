@@ -73,7 +73,7 @@
       </div>
     </transition>
     <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" @timeupdate="updateTime"
-           :src="currentSong.url"></audio>
+           :src="currentSong.url" @ended="end"></audio>
   </div>
 </template>
 
@@ -212,6 +212,18 @@
       },
       error() {
         this.songReady = true
+      },
+      end() {
+        if (this.mode === playMode.loop) {
+          this.loop()
+        } else {
+          this.next()
+        }
+      },
+      loop() {
+        // 单曲循环的话，只需要将当前的时间调整到0:00
+        this.$refs.audio.currentTime = 0
+        this.$refs.audio.play()
       },
       _getPosAndScale() {
         const targetWidth = 40
