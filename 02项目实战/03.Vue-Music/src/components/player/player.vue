@@ -26,6 +26,11 @@
           </div>
         </div>
         <div class="bottom">
+          <div class="progress-wrapper">
+            <span class="time time-l">{{currentTime}}</span>
+            <div class="progress-bar-wrapper"></div>
+            <span class="time time-r"></span>
+          </div>
           <div class="operators">
             <div class="icon i-left">
               <i class="icon-sequence"></i>
@@ -62,7 +67,8 @@
         </div>
       </div>
     </transition>
-    <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" :src="currentSong.url"></audio>
+    <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" @timeupdate="updateTime"
+           :src="currentSong.url"></audio>
   </div>
 </template>
 
@@ -76,7 +82,8 @@
   export default {
     data() {
       return {
-        songReady: false
+        songReady: false,
+        currentTime: 0
       }
     },
     props: {},
@@ -210,6 +217,9 @@
           return
         }
         this.setPlayingState(!this.playing)
+      },
+      updateTime(e) {
+        this.currentTime = e.target.currentTime
       }
     },
     watch: {
