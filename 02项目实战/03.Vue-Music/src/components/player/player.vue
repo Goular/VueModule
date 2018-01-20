@@ -299,6 +299,7 @@
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         this.$nextTick(() => {
           this.$refs.audio.play()
+          this.currentSong.getLyric()
         })
       },
       playing(newPlaying) {
