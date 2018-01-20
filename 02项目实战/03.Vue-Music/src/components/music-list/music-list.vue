@@ -88,9 +88,13 @@
         })
       },
       ...mapActions([
-        'selectPlay'
+        'selectPlay',
+        'randomPlay'
       ]),
       random() {
+        this.randomPlay({
+          list: this.songs
+        })
       }
     },
     watch: {
