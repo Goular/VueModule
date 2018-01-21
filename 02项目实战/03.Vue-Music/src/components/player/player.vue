@@ -16,7 +16,11 @@
           <h1 class="title" v-html="currentSong.name"></h1>
           <h2 class="subtitle" v-html="currentSong.singer"></h2>
         </div>
-        <div class="middle">
+        <div class="middle"
+             @touchstart.prevent="middleTouchStart"
+             @touchmove.prevent="middleTouchMove"
+             @touchend="middleTouchEnd"
+        >
           <div class="middle-l">
             <div class="cd-wrapper" ref="cdWrapper">
               <div class="cd" :class="cdCls">
@@ -34,6 +38,10 @@
           </scroll>
         </div>
         <div class="bottom">
+          <div class="dot-wrapper">
+            <span class="dot" :class="{'active':currentShow === 'cd'}"></span>
+            <span class="dot" :class="{'active':currentShow === 'lyric'}"></span>
+          </div>
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
             <div class="progress-bar-wrapper">
@@ -105,7 +113,8 @@
         currentTime: 0,
         radius: 32,
         currentLyric: null,
-        currentLineNum: 0
+        currentLineNum: 0,
+        currentShow: 'cd'
       }
     },
     props: {},
@@ -137,6 +146,9 @@
         'mode',
         'sequenceList'
       ])
+    },
+    created() {
+      this.touch = {}
     },
     methods: {
       onProgressBarChange(percent) {
@@ -273,6 +285,28 @@
         const minute = interval / 60 | 0
         const second = this._pad(interval % 60)
         return `${minute}:${second}`
+      },
+      middleTouchStart(e) {
+        this.touch.initiated = true
+        const touch = e.touches[0]
+        this.touch.startX = touch.pageX
+        this.touch.startY = touch.pageY
+      },
+      middleTouchMove(e) {
+        if (!this.touch.initiated) {
+          return
+        }
+        const touch = e.touches[0]
+        const deltaX = touch.pageX - this.touch.startX
+        const deltaY = touch.pageY - this.touch.startY
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          return
+        }
+        const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
+        const width = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
+        this.$refs.lyricList.$el.style[transform] = `translate3d(${width}px,0,0)`
+      },
+      middleTouchEnd() {
       },
       _pad(num, n = 2) {
         let len = num.toString().length
