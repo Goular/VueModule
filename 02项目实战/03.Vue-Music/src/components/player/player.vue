@@ -24,6 +24,14 @@
               </div>
             </div>
           </div>
+          <div class="middle-r" ref="lyricList">
+            <div class="lyric-wrapper">
+              <div v-if="currentLyric">
+                <p ref="lyricLine" :class="{'current':currentLineNum === index}" class="text"
+                   v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="bottom">
           <div class="progress-wrapper">
@@ -95,7 +103,8 @@
         songReady: false,
         currentTime: 0,
         radius: 32,
-        currentLyric: null
+        currentLyric: null,
+        currentLineNum: 0
       }
     },
     props: {},
@@ -274,9 +283,15 @@
       },
       getLyric() {
         this.currentSong.getLyric().then((lyric) => {
-          this.currentLyric = new Lyric(lyric)
+          this.currentLyric = new Lyric(lyric, this.handleLyric)
+          if (this.playing) {
+            this.currentLyric.play()
+          }
           console.log(this.currentLyric)
         })
+      },
+      handleLyric({lineNum, txt}) {
+        this.currentLineNum = lineNum
       },
       changeMode() {
         const mode = (this.mode + 1) % 3
