@@ -32,6 +32,7 @@
   import {prefixStyle} from '../../common/js/dom'
   import Loading from '../../base/loading/loading'
   import {mapActions} from 'vuex'
+  import {playListMixin} from '../../common/js/mixin'
 
   // 让滚动的layer不超过顶部下面的40px，用于留空,这样会好看一点
   const RESERVED_HEIGHT = 40
@@ -39,6 +40,7 @@
   const backdrop = prefixStyle('backdrop-filter')
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         scrollY: 0
@@ -95,6 +97,11 @@
         this.randomPlay({
           list: this.songs
         })
+      },
+      handlePlayList(playList) {
+        const bottom = playList.length > 0 ? '60px' : ''
+        this.$refs.list.$el.style.bottom = bottom
+        this.$refs.list.refresh()
       }
     },
     watch: {
