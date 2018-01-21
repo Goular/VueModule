@@ -85,6 +85,7 @@
   import ProgressCircle from 'base/progress-circle/progress-circle'
   import {playMode} from '../../common/js/config'
   import {shuffle} from '../../common/js/utils'
+  import Lyric from 'lyric-parser'
 
   const transform = prefixStyle('transform')
 
@@ -93,7 +94,8 @@
       return {
         songReady: false,
         currentTime: 0,
-        radius: 32
+        radius: 32,
+        currentLyric: null
       }
     },
     props: {},
@@ -270,6 +272,12 @@
         }
         return num
       },
+      getLyric() {
+        this.currentSong.getLyric().then((lyric) => {
+          this.currentLyric = new Lyric(lyric)
+          console.log(this.currentLyric)
+        })
+      },
       changeMode() {
         const mode = (this.mode + 1) % 3
         this.setPlayMode(mode)
@@ -299,7 +307,7 @@
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         this.$nextTick(() => {
           this.$refs.audio.play()
-          this.currentSong.getLyric()
+          this.getLyric()
         })
       },
       playing(newPlaying) {
