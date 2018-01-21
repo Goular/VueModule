@@ -425,7 +425,7 @@
         }
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         //this.$nextTick(() => {
-        setTimeout(() => {
+        setTimeout(() => { //使用timeout是为了解决微信后台歌曲切换,不能正常触发的问题，使用定时器直接调用播放
           this.$refs.audio.play()
           this.getLyric()
         }, 1000)
