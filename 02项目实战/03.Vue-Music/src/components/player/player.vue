@@ -24,14 +24,14 @@
               </div>
             </div>
           </div>
-          <div class="middle-r" ref="lyricList">
+          <scroll class="middle-r" ref="lyricList" :data="currentLyric && currentLyric.lines">
             <div class="lyric-wrapper">
               <div v-if="currentLyric">
                 <p ref="lyricLine" :class="{'current':currentLineNum === index}" class="text"
                    v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
               </div>
             </div>
-          </div>
+          </scroll>
         </div>
         <div class="bottom">
           <div class="progress-wrapper">
@@ -94,6 +94,7 @@
   import {playMode} from '../../common/js/config'
   import {shuffle} from '../../common/js/utils'
   import Lyric from 'lyric-parser'
+  import Scroll from 'base/scroll/scroll'
 
   const transform = prefixStyle('transform')
 
@@ -334,7 +335,8 @@
     },
     components: {
       ProgressBar,
-      ProgressCircle
+      ProgressCircle,
+      Scroll
     }
   }
 </script>
