@@ -105,6 +105,7 @@
   import Scroll from 'base/scroll/scroll'
 
   const transform = prefixStyle('transform')
+  const transitionDuration = prefixStyle('transitionDuration')
 
   export default {
     data() {
@@ -303,10 +304,30 @@
           return
         }
         const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
-        const width = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
-        this.$refs.lyricList.$el.style[transform] = `translate3d(${width}px,0,0)`
+        const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
+        this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
+        this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
       },
       middleTouchEnd() {
+        let offsetWidth
+        if (this.currentShow === 'cd') {
+          if (this.touch.percent > 0.1) {
+            offsetWidth = -window.innerWidth
+            this.currentShow = 'lyric'
+          } else {
+            offsetWidth = 0
+          }
+        } else {
+          if (this.touch.percent < 0.9) {
+            offsetWidth = 0
+            this.currentShow = 'cd'
+          } else {
+            offsetWidth = -window.innerWidth
+          }
+        }
+        const time = 300
+        this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+        this.$refs.lyricList.$el.style[transitionDuration] = `${time}ms`
       },
       _pad(num, n = 2) {
         let len = num.toString().length
