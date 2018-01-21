@@ -249,6 +249,9 @@
         // 单曲循环的话，只需要将当前的时间调整到0:00
         this.$refs.audio.currentTime = 0
         this.$refs.audio.play()
+        if (this.currentLyric) {
+          this.currentLyric.seek(0)
+        }
       },
       _getPosAndScale() {
         const targetWidth = 40
@@ -277,6 +280,9 @@
           return
         }
         this.setPlayingState(!this.playing)
+        if (this.currentLyric) {
+          this.currentLyric.togglePlay()
+        }
       },
       updateTime(e) {
         this.currentTime = e.target.currentTime
@@ -390,6 +396,9 @@
         // 当新歌与旧歌音乐相同时，不再调用重新唱歌的选项
         if (newSong.id === oldSong.id) {
           return
+        }
+        if (this.currentLyric) {
+          this.currentLyric.stop()
         }
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         this.$nextTick(() => {
