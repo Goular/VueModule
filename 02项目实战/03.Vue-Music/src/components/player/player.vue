@@ -293,6 +293,12 @@
       },
       handleLyric({lineNum, txt}) {
         this.currentLineNum = lineNum
+        if (lineNum > 5) {
+          let lineEl = this.$refs.lyricLine[lineNum - 5]
+          this.$refs.lyricList.scrollToElement(lineEl, 1000)
+        } else {
+          this.$refs.lyricList.scrollTo(0, 0, 1000)
+        }
       },
       changeMode() {
         const mode = (this.mode + 1) % 3
