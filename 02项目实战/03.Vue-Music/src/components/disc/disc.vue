@@ -1,13 +1,27 @@
 <template>
   <transition name="slide">
-    <music-list></music-list>
+    <music-list :title="title" :bg-image="bgImage"></music-list>
   </transition>
 </template>
 
 <script text="text/ecmascript-6">
   import MusicList from '../music-list/music-list'
+  import {mapGetters} from 'vuex'
 
-  export default {components: {MusicList}}
+  export default {
+    computed: {
+      title() {
+        return this.disc.dissname
+      },
+      bgImage() {
+        return this.disc.imgurl
+      },
+      ...mapGetters([
+        'disc'
+      ])
+    },
+    components: {MusicList}
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

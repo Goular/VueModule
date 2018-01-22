@@ -34,3 +34,20 @@ export function getDiscList() {
     return Promise.resolve(res.data)
   })
 }
+
+// 获取推荐的歌单信息
+export function getSongList(dissid) {
+  const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+  const data = {
+    dissid,
+    type: 1,
+    json: 1,
+    utf8: 1,
+    onlysong: 0,
+    platform: 'yqq',
+    hostUin: 0,
+    needNewCode: 0,
+    g_tk: 67232076
+  }
+  return jsonp(url, data, options)
+}
