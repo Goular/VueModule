@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <music-list :bgImage="bgImage" :title="title" :songs="songs"></music-list>
+    <music-list :rank="rank" :bgImage="bgImage" :title="title" :songs="songs"></music-list>
   </transition>
 </template>
 
@@ -18,7 +18,10 @@
         return this.topList.topTitle
       },
       bgImage() {
+        // 展示一 带标题
         // return this.topList.picUrl
+
+        // 不带标题，第一个歌曲图片
         if (this.songs.length) {
           return this.songs[0].image
         }
@@ -33,7 +36,8 @@
     },
     data() {
       return {
-        songs: []
+        songs: [],
+        rank: true
       }
     },
     methods: {
