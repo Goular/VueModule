@@ -38,7 +38,6 @@
           return
         }
         getSongList(this.disc.dissid).then((res) => {
-          console.dir(res.cdlist[0].songlist)
           if (res.code === ERR_OK) {
             this.songs = this._normalizeSongs(res.cdlist[0].songlist)
               // console.dir(this.songs)
@@ -48,7 +47,6 @@
       _normalizeSongs(list) {
         let ret = []
         list.forEach((musicData) => {
-          console.dir(musicData)
           if (musicData.id && musicData.album.id) {
             ret.push(createRecommendSong(musicData))
           }
