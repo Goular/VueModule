@@ -36,18 +36,28 @@ export function getDiscList() {
 }
 
 // 获取推荐的歌单信息
-export function getSongList(dissid) {
-  const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
-  const data = {
-    dissid,
+export function getSongList(disstid) {
+  const url = '/api/getSongList'
+
+  const data = Object.assign({}, commonParams, {
+    uin: 0,
+    format: 'json',
+    platform: 'h5',
+    needNewCode: 1,
+    new_format: 1,
+    pic: 500,
+    disstid,
     type: 1,
     json: 1,
     utf8: 1,
     onlysong: 0,
-    platform: 'yqq',
-    hostUin: 0,
-    needNewCode: 0,
-    g_tk: 67232076
-  }
-  return jsonp(url, data, options)
+    picmid: 1,
+    nosign: 1,
+    song_begin: 0,
+    song_num: 15
+  })
+
+  return axios.get(url, {params: data}).then((res) => {
+    return Promise.resolve(res.data)
+  })
 }
