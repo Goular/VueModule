@@ -63,7 +63,7 @@ export function createRecommendSong(musicData) {
   })
 }
 
-export function filterSinger(singer) {
+function filterSinger(singer) {
   let ret = []
   if (!singer) {
     return ''
