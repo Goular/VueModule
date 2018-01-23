@@ -104,14 +104,14 @@
       _genResult(data) {
         let ret = []
         if (data.zhida && data.zhida.singerid) {
-          ret.push(...data.zhida, ...{type: TYPE_SINGER})
+          ret.push({...data.zhida, ...{type: TYPE_SINGER}})
         }
         if (data.song) {
-          ret = ret.concat(this._normalizeSOngs(data.song.list))
+          ret = ret.concat(this._normalizeSongs(data.song.list))
         }
         return ret
       },
-      _normalizeSOngs(list) {
+      _normalizeSongs(list) {
         let ret = []
         list.forEach((musicData) => {
           if (musicData.songid && musicData.albumid) {
