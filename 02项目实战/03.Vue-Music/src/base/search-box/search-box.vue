@@ -1,13 +1,31 @@
 <template>
   <div class="search-box">
     <i class="icon-search"></i>
-    <input class="box"/>
-    <i class="icon-dismiss"></i>
+    <input class="box" v-model="query" :placeholder="placeholder"/>
+    <i @click="clear" v-show="query" class="icon-dismiss"></i>
   </div>
 </template>
 
 <script text="text/ecmascript-6">
-  export default {}
+  export default {
+    props: {
+      placeholder: {
+        type: String,
+        default: `搜索 歌曲/歌手`
+      }
+    },
+    data() {
+      return {
+        query: ''
+      }
+    },
+    methods: {
+      clear() {
+        console.dir('112233')
+        this.query = ''
+      }
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
