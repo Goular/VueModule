@@ -21,9 +21,16 @@
     },
     methods: {
       clear() {
-        console.dir('112233')
         this.query = ''
+      },
+      setQuery(query) {
+        this.query = query
       }
+    },
+    created() {
+      this.$watch('query', (newQuery) => {
+        this.$emit('query', newQuery)
+      })
     }
   }
 </script>
