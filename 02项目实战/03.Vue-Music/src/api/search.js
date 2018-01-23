@@ -10,6 +10,7 @@ export function getHotKey() {
   return jsonp(url, data, options)
 }
 
+// zhida:判断是否顺带歌手还是以歌曲名搜索歌曲，不包含相关歌手
 export function search(query, page, zhida, perpage) {
   const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp'
 

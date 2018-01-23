@@ -19,6 +19,7 @@
   import {filterSinger} from 'common/js/Song'
 
   const TYPE_SINGER = 'singer'
+  const perpage = 20
 
   export default {
     props: {
@@ -39,12 +40,13 @@
     },
     methods: {
       search() {
-        search(this.query, this.page, this.showSinger).then((res) => {
-          console.dir(res)
-          if (res.code === ERR_OK) {
-            // this.result = this._genResult(res.data)
-          }
-        })
+        if (this.query) {
+          search(this.query, this.page, this.showSinger, perpage).then((res) => {
+            if (res.code === ERR_OK) {
+              this.result = this._genResult(res.data)
+            }
+          })
+        }
       },
       getIconCls(item) {
         if (item.type === TYPE_SINGER) {
@@ -68,6 +70,7 @@
         if (data.song) {
           ret = ret.concat(data.song.list)
         }
+        return ret
       }
     },
     watch: {
