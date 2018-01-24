@@ -86,12 +86,12 @@
             <i @click.stop.prevent="togglePlaying" :class="miniIcon" class="icon-mini"></i>
           </progress-circle>
         </div>
-        <div class="control">
+        <div class="control" @click.prevent.stop="showPlaylist">
           <i class="icon-playlist"></i>
         </div>
       </div>
     </transition>
-    <playlist></playlist>
+    <playlist ref="playlist"></playlist>
     <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" @timeupdate="updateTime"
            :src="currentSong.url" @ended="end"></audio>
   </div>
@@ -319,6 +319,9 @@
         const touch = e.touches[0]
         this.touch.startX = touch.pageX
         this.touch.startY = touch.pageY
+      },
+      showPlaylist() {
+        this.$refs.playlist.show()
       },
       middleTouchMove(e) {
         if (!this.touch.initiated) {
