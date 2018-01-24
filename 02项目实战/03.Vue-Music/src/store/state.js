@@ -17,6 +17,8 @@ const state = {
   // 添加歌单的对象
   disc: {},
   // 获取顶部列表
-  topList: {}
+  topList: {},
+  // 浏览历史
+  searchHistory: []
 }
 export default state
