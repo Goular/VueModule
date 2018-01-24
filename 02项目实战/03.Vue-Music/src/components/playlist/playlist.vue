@@ -11,13 +11,13 @@
         </div>
         <scroll ref="listContent" class="list-content" :data="sequenceList">
           <ul>
-            <li class="item" v-for="(item,index) in sequenceList" @click="selectItem(item,index)">
+            <li ref="listItem" class="item" v-for="(item,index) in sequenceList" @click="selectItem(item,index)">
               <i class="current" :class="getCurrentIcon(item)"></i>
               <span class="text">{{item.name}}</span>
               <span class="like">
                 <i class="icon-not-favorite"></i>
               </span>
-              <span class="delete">
+              <span class="delete" @click.stop="deleteOne(item)">
                 <i class="icon-delete"></i>
               </span>
             </li>
@@ -38,7 +38,7 @@
 </template>
 
 <script text="text/ecmascript-6">
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
   import Scroll from '../../base/scroll/scroll'
   import {playMode} from '../../common/js/config'
 
@@ -63,6 +63,7 @@
         // 由于存在列表的加载显示比列表加载要按，这个时候，就会出现scroll刷新异常
         setTimeout(() => {
           this.$refs.listContent.refresh()
+          this.scrollToCurrent(this.currentSong)
         }, 20)
       },
       hide() {
@@ -86,7 +87,27 @@
       ...mapMutations({
         setCurrentIndex: 'SET_CURRENT_INDEX',
         setPlayingState: 'SET_PLAYING_STATE'
-      })
+      }),
+      ...mapActions([
+        'deleteSong'
+      ]),
+      scrollToCurrent(current) {
+        const index = this.sequenceList.findIndex((song) => {
+          return current.id === song.id
+        })
+        this.$refs.listContent.scrollToElement(this.$refs.listItem[index], 300)
+      },
+      deleteOne(item) {
+        this.deleteSong(item)
+      }
+    },
+    watch: {
+      currentSong(newSong, oldSong) {
+        if (!this.showFlag || newSong.id === oldSong.id) {
+          return
+        }
+        this.scrollToCurrent(newSong)
+      }
     }
   }
 </script>
