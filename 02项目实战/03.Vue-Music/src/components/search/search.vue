@@ -16,11 +16,11 @@
         <div class="search-history" v-show="searchHistory.length">
           <h1 class="title">
             <span class="text">搜索历史</span>
-            <span class="clear">
+            <span class="clear" @click="clearSearchHistory">
               <i class="icon-clear"></i>
             </span>
           </h1>
-          <search-list @select="addQuery" @delete="deleteOne" :searches="searchHistory"></search-list>
+          <search-list @select="addQuery" @delete="deleteSearchHistory" :searches="searchHistory"></search-list>
         </div>
       </div>
     </div>
@@ -67,10 +67,6 @@
       blurInput() {
         this.$refs.searchBox.blur()
       },
-      deleteOne(item) {
-        console.log('112233')
-        this.deleteSearchHistory(item)
-      },
       _getHotKey() {
         getHotKey().then((res) => {
           if (res.code === ERR_OK) {
@@ -80,7 +76,8 @@
       },
       ...mapActions([
         'saveSearchHistory',
-        'deleteSearchHistory'
+        'deleteSearchHistory',
+        'clearSearchHistory'
       ])
     },
     components: {

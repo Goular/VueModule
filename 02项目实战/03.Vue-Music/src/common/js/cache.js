@@ -46,3 +46,9 @@ export function deleteSearch(query) {
   storage.set(SEARCH_KEY, searches)
   return searches
 }
+
+// 清空资料的方法
+export function clearSearch() {
+  storage.remove(SEARCH_KEY)
+  return []
+}
