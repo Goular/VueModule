@@ -9,11 +9,11 @@
             <span class="clear"><i class="icon-clear"></i></span>
           </h1>
         </div>
-        <div class="list-content">
+        <scroll ref="listContent" class="list-content" :data="sequenceList">
           <ul>
-            <li class="item">
-              <i class="current"></i>
-              <span class="text"></span>
+            <li class="item" v-for="(item,index) in sequenceList" @click="selectItem(item,index)">
+              <i class="current" :class="getCurrentIcon(item)"></i>
+              <span class="text">{{item.name}}</span>
               <span class="like">
                 <i class="icon-not-favorite"></i>
               </span>
@@ -22,7 +22,7 @@
               </span>
             </li>
           </ul>
-        </div>
+        </scroll>
         <div class="list-operate">
           <div class="add">
             <i class="icon-add"></i>
@@ -38,19 +38,55 @@
 </template>
 
 <script text="text/ecmascript-6">
+  import {mapGetters, mapMutations} from 'vuex'
+  import Scroll from '../../base/scroll/scroll'
+  import {playMode} from '../../common/js/config'
+
   export default {
+    components: {Scroll},
     data() {
       return {
         showFlag: false
       }
     },
+    computed: {
+      ...mapGetters([
+        'sequenceList',
+        'currentSong',
+        'mode',
+        'playList'
+      ])
+    },
     methods: {
       show() {
         this.showFlag = true
+        // 由于存在列表的加载显示比列表加载要按，这个时候，就会出现scroll刷新异常
+        setTimeout(() => {
+          this.$refs.listContent.refresh()
+        }, 20)
       },
       hide() {
         this.showFlag = false
-      }
+      },
+      getCurrentIcon(item) {
+        if (this.currentSong.id === item.id) {
+          return 'icon-play'
+        }
+        return ''
+      },
+      selectItem(item, index) {
+        if (this.mode === playMode.random) {
+          index = this.playList.findIndex((song) => {
+            return song.id === item.id
+          })
+        }
+        this.setCurrentIndex(index)
+        this.setPlayingState(true)
+      },
+      ...mapMutations({
+        setCurrentIndex: 'SET_CURRENT_INDEX',
+        setPlayingState: 'SET_PLAYING_STATE'
+      })
     }
   }
 </script>
