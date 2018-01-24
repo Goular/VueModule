@@ -107,7 +107,7 @@
         }
         this.$emit('select')
       },
-      refresh(){
+      refresh() {
         this.$refs.suggest.refresh()
       },
       listScroll() {

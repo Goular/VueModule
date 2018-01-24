@@ -91,6 +91,7 @@
         </div>
       </div>
     </transition>
+    <playlist></playlist>
     <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" @timeupdate="updateTime"
            :src="currentSong.url" @ended="end"></audio>
   </div>
@@ -106,6 +107,7 @@
   import {shuffle} from '../../common/js/utils'
   import Lyric from 'lyric-parser'
   import Scroll from 'base/scroll/scroll'
+  import Playlist from 'components/playlist/playlist'
 
   const transform = prefixStyle('transform')
   const transitionDuration = prefixStyle('transitionDuration')
@@ -443,7 +445,8 @@
     components: {
       ProgressBar,
       ProgressCircle,
-      Scroll
+      Scroll,
+      Playlist
     }
   }
 </script>
