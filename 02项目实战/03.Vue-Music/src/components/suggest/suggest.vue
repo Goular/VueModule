@@ -3,6 +3,8 @@
           :data="result"
           :pullup="pullup"
           @scrollToEnd="searchMore"
+          :beforeScroll="beforeScroll"
+          @beforeScroll="listScroll"
           ref="suggest"
   >
     <ul class="suggest-list">
@@ -57,6 +59,7 @@
         result: [],
         pullup: true,
         hasMore: true,
+        beforeScroll: true,
         noResultTitle: '抱歉，暂无搜索结果!'
       }
     },
@@ -102,6 +105,9 @@
         } else {
           this.insertSong(item)
         }
+      },
+      listScroll() {
+        this.$emit('listScroll')
       },
       _checkMore(data) {
         const song = data.song

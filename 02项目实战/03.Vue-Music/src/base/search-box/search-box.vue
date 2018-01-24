@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <i class="icon-search"></i>
-    <input class="box" v-model="query" :placeholder="placeholder"/>
+    <input ref="query" class="box" v-model="query" :placeholder="placeholder"/>
     <i @click="clear" v-show="query" class="icon-dismiss"></i>
   </div>
 </template>
@@ -27,6 +27,10 @@
       },
       setQuery(query) {
         this.query = query
+      },
+      // 创建一个对外的方法
+      blur() {
+        this.$refs.query.blur()
       }
     },
     created() {
