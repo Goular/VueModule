@@ -1,7 +1,8 @@
 import storage from 'good-storage'
 
 const SEARCH_KEY = '__search__'
-const SEARCH_MAX_LENGTH = 15
+// 控制storage保存的最大数量
+const SEARCH_MAX_LENGTH = 10
 
 function insertArray(arr, val, compare, maxLen) {
   const index = arr.findIndex(compare)
