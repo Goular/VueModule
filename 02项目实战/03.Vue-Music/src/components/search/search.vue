@@ -20,7 +20,7 @@
               <i class="icon-clear"></i>
             </span>
           </h1>
-          <search-list @select="addQuery" :searches="searchHistory"></search-list>
+          <search-list @select="addQuery" @delete="deleteOne" :searches="searchHistory"></search-list>
         </div>
       </div>
     </div>
@@ -67,6 +67,10 @@
       blurInput() {
         this.$refs.searchBox.blur()
       },
+      deleteOne(item) {
+        console.log('112233')
+        this.deleteSearchHistory(item)
+      },
       _getHotKey() {
         getHotKey().then((res) => {
           if (res.code === ERR_OK) {
@@ -75,7 +79,8 @@
         })
       },
       ...mapActions([
-        'saveSearchHistory'
+        'saveSearchHistory',
+        'deleteSearchHistory'
       ])
     },
     components: {
