@@ -99,7 +99,7 @@
       deleteOne(item) {
         this.deleteSong(item)
         // 如果歌曲为空，应该将内容清空
-        if (!this.playlist.length) {
+        if (!this.playList.length) {
           this.hide()
         }
       },
