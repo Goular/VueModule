@@ -28,7 +28,7 @@
       setQuery(query) {
         this.query = query
       },
-      // 创建一个对外的方法
+      // 创建一个对外的方法,用于消除焦点，是dom方法
       blur() {
         this.$refs.query.blur()
       }
