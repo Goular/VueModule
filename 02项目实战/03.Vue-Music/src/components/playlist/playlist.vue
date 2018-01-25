@@ -5,7 +5,7 @@
         <div class="list-header">
           <h1 class="title">
             <i class="icon" :class="iconMode" @click="changeMode"></i>
-            <span class="text"></span>
+            <span class="text">{{modeText}}</span>
             <span class="clear" @click="showConfirm"><i class="icon-clear"></i></span>
           </h1>
         </div>
@@ -54,7 +54,11 @@
         showFlag: false
       }
     },
-    computed: {},
+    computed: {
+      modeText() {
+        return this.mode === playMode.sequence ? '顺序播放' : this.mode === playMode.random ? '随机播放' : '单曲播放'
+      }
+    },
     methods: {
       show() {
         this.showFlag = true
