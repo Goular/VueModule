@@ -424,6 +424,9 @@
     watch: {
       // 当歌曲的路径发生数据变化时，我们进行音乐的播放
       currentSong(newSong, oldSong) {
+        if (!newSong.id) {
+          return
+        }
         // 当新歌与旧歌音乐相同时，不再调用重新唱歌的选项
         if (newSong.id === oldSong.id) {
           return

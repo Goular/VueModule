@@ -96,11 +96,6 @@ export const deleteSong = function ({commit, state}, song) {
   if (currentIndex > pIndex || currentIndex === playlist.length) {
     currentIndex--
   }
-
-  console.log("currentIndex::" + currentIndex)
-  console.log("pIndex::" + pIndex)
-
-
   commit(types.SET_PLAYLIST, playlist)
   commit(types.SET_SEQUENCE_LIST, sequenceList)
   commit(types.SET_CURRENT_INDEX, currentIndex)
