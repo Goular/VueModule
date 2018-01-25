@@ -25,7 +25,7 @@
           </transition-group>
         </scroll>
         <div class="list-operate">
-          <div class="add">
+          <div class="add" @click="addSong">
             <i class="icon-add"></i>
             <span class="text">添加歌曲到队列</span>
           </div>
@@ -35,6 +35,7 @@
         </div>
       </div>
       <confirm ref="confirm" @confirm="confirmClear" text="是否清空播放列表" confirmBtnText="清空"></confirm>
+      <add-song ref="addSong"></add-song>
     </div>
   </transition>
 </template>
@@ -45,10 +46,11 @@
   import {playMode} from '../../common/js/config'
   import Confirm from 'base/confirm/confirm'
   import {playerMixin} from '../../common/js/mixin'
+  import AddSong from 'components/add-song/add-song'
 
   export default {
     mixins: [playerMixin],
-    components: {Scroll, Confirm},
+    components: {Scroll, Confirm, AddSong},
     data() {
       return {
         showFlag: false
@@ -60,6 +62,9 @@
       }
     },
     methods: {
+      addSong() {
+        this.$refs.addSong.show()
+      },
       show() {
         this.showFlag = true
         // 由于存在列表的加载显示比列表加载要按，这个时候，就会出现scroll刷新异常
