@@ -40,6 +40,7 @@
       },
       selectSuggest() {
         this.saveSearch()
+        // this.hide()
       }
     },
     components: {
