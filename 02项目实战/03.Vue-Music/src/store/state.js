@@ -20,6 +20,8 @@ const state = {
   // 获取顶部列表
   topList: {},
   // 浏览历史
-  searchHistory: loadSearch()
+  searchHistory: loadSearch(),
+  // 播放历史
+  playHistory: []
 }
 export default state
