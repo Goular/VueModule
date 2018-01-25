@@ -1,24 +1,33 @@
 <template>
   <transition name="slide">
-    <div class="add-song" v-show="showFlag">
+    <div class="add-song" v-show="showFlag" @click.stop>
       <div class="header">
         <h1 class="title">添加歌曲到列表</h1>
-        <div class="close">
+        <div class="close" @click="hide">
           <i class="icon-close"></i>
         </div>
       </div>
-      <div class="search-box-wrapper"></div>
-      <div class="shortcut"></div>
-      <div class="search-result"></div>
+      <div class="search-box-wrapper">
+        <search-box @query="search" placeholder="搜索歌曲"></search-box>
+      </div>
+      <div class="shortcut" v-show="!query"></div>
+      <div class="search-result" v-show="query">
+        <suggest :query="query" :showSinger="showSinger"></suggest>
+      </div>
     </div>
   </transition>
 </template>
 
 <script text="text/ecmascript-6">
+  import SearchBox from 'base/search-box/search-box'
+  import Suggest from 'components/suggest/suggest'
+
   export default {
     data() {
       return {
-        showFlag: false
+        showFlag: false,
+        query: '',
+        showSinger: false
       }
     },
     methods: {
@@ -27,7 +36,14 @@
       },
       hide() {
         this.showFlag = false
+      },
+      search(query) {
+        this.query = query
       }
+    },
+    components: {
+      SearchBox,
+      Suggest
     }
   }
 </script>
