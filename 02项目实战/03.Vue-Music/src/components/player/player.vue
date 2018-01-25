@@ -108,11 +108,13 @@
   import Lyric from 'lyric-parser'
   import Scroll from 'base/scroll/scroll'
   import Playlist from 'components/playlist/playlist'
+  import {playerMixin} from '../../common/js/mixin'
 
   const transform = prefixStyle('transform')
   const transitionDuration = prefixStyle('transitionDuration')
 
   export default {
+    mixins: [playerMixin],
     data() {
       return {
         songReady: false,
@@ -140,9 +142,6 @@
       },
       percent() {
         return this.currentTime / this.currentSong.duration
-      },
-      iconMode() {
-        return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
       },
       ...mapGetters([
         'fullScreen',
