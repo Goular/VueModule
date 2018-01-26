@@ -23,6 +23,9 @@
           </div>
         </scroll>
       </div>
+      <div class="no-result-wrapper" v-show="noResult">
+        <no-result :title="noResultDesc"></no-result>
+      </div>
     </div>
   </transition>
 </template>
@@ -34,6 +37,7 @@
   import Song from 'common/js/Song'
   import SongList from 'base/song-list/song-list'
   import {playListMixin} from '../../common/js/mixin'
+  import NoResult from 'base/no-result/no-result'
 
   export default {
     mixins: [playListMixin],
@@ -50,17 +54,33 @@
       ...mapGetters([
         'favoriteList',
         'playHistory'
-      ])
+      ]),
+      noResultDesc() {
+        if (this.currentIndex === 0) {
+          return '暂无收藏歌曲'
+        } else {
+          return '你还没有听过歌曲'
+        }
+      },
+      noResult() {
+        if (this.currentIndex === 0) {
+          return !this.favoriteList.length
+        } else {
+          return !this.playHistory.length
+        }
+      }
     },
     components: {
       Switches,
       Scroll,
-      SongList
+      SongList,
+      NoResult
     },
     methods: {
       handlePlayList(playlist) {
         const bottom = playlist.length > 0 ? '60px' : ''
         this.$refs.listWrapper.style.bottom = bottom
+        // 短路写法，前面判断，正确后执行后面的内容
         this.$refs.favoriteList && this.$refs.favoriteList.refresh()
         this.$refs.playList && this.$refs.playList.refresh()
       },
@@ -75,6 +95,9 @@
       },
       random() {
         let list = this.currentIndex === 0 ? this.favoriteList : this.playHistory
+        if (list.length === 0) {
+          return
+        }
         list = list.map((song) => {
           return new Song(song)
         })
