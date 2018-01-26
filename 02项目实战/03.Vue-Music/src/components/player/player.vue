@@ -92,7 +92,7 @@
       </div>
     </transition>
     <playlist ref="playlist"></playlist>
-    <audio autoplay="autoplay" ref="audio" @canplay="ready" @error="error" @timeupdate="updateTime"
+    <audio autoplay="autoplay" ref="audio" @play="ready" @error="error" @timeupdate="updateTime"
            :src="currentSong.url" @ended="end"></audio>
   </div>
 </template>
@@ -412,7 +412,8 @@
         }
         // 在数据没有完全渲染好之前，不要执行异步播放音乐的操作
         // this.$nextTick(() => {
-        setTimeout(() => { // 使用timeout是为了解决微信后台歌曲切换,不能正常触发的问题，使用定时器直接调用播放
+        clearTimeout(this.timer) // 频繁切换歌曲的时候，如果没有this.timer,那么就会出现歌曲在切换是依旧播放前一首曲子的问题
+        this.timer = setTimeout(() => { // 使用timeout是为了解决微信后台歌曲切换,不能正常触发的问题，使用定时器直接调用播放
           this.$refs.audio.play()
           this.getLyric()
         }, 1000)
