@@ -1,13 +1,13 @@
 <template>
   <transition name="slide">
     <div class="user-center">
-      <div class="back">
+      <div class="back" @click="back">
         <i class="icon-back"></i>
       </div>
       <div class="switches-wrapper">
         <switches @switch="switchItem" :switches="switches" :currentIndex="currentIndex"></switches>
       </div>
-      <div ref="playBtn" class="play-btn">
+      <div ref="playBtn" class="play-btn" @click="random">
         <i class="icon-play"></i>
         <span class="text">随机播放全部</span>
       </div>
@@ -63,8 +63,21 @@
       selectSong(song) {
         this.insertSong(new Song(song))
       },
+      back() {
+        this.$router.back()
+      },
+      random() {
+        let list = this.currentIndex === 0 ? this.favoriteList : this.playHistory
+        list = list.map((song) => {
+          return new Song(song)
+        })
+        this.randomPlay({
+          list
+        })
+      },
       ...mapActions([
-        'insertSong'
+        'insertSong',
+        'randomPlay'
       ])
     }
   }
