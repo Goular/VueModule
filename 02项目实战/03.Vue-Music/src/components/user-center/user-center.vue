@@ -17,8 +17,7 @@
             <song-list :songs="favoriteList" @select="selectSong"></song-list>
           </div>
         </scroll>
-        <scroll ref="playList" class="list-scroll" v-if="currentIndex===1"
-                :data="playHistory">
+        <scroll ref="playList" class="list-scroll" v-if="currentIndex===1" :data="playHistory">
           <div class="list-inner">
             <song-list :songs="playHistory" @select="selectSong"></song-list>
           </div>
@@ -34,8 +33,10 @@
   import Scroll from 'base/scroll/scroll'
   import Song from 'common/js/Song'
   import SongList from 'base/song-list/song-list'
+  import {playListMixin} from '../../common/js/mixin'
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         currentIndex: 0,
@@ -57,6 +58,12 @@
       SongList
     },
     methods: {
+      handlePlayList(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.listWrapper.style.bottom = bottom
+        this.$refs.favoriteList && this.$refs.favoriteList.refresh()
+        this.$refs.playList && this.$refs.playList.refresh()
+      },
       switchItem(index) {
         this.currentIndex = index
       },
