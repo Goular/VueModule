@@ -23,7 +23,7 @@
       },
       rank: {
         type: Boolean,
-        default: []
+        default: false
       }
     },
     methods: {
