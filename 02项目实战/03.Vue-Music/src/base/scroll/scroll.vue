@@ -94,6 +94,7 @@
     },
     watch: {
       data() {
+        // console.log("触发了刷新")
         setTimeout(() => {
           this.refresh()
         }, this.refreshDelay)
