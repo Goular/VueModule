@@ -39,7 +39,7 @@ export function getDiscList() {
 
 // 获取推荐的歌单信息
 export function getSongList(disstid) {
-  const url = '/api/getSongList'
+  const url = 'https://blog.jiagongwu.com/api/music/getSongList/' + disstid
 
   const data = Object.assign({}, commonParams, {
     uin: 0,
@@ -60,6 +60,10 @@ export function getSongList(disstid) {
   })
 
   return axios.get(url, {params: data}).then((res) => {
-    return Promise.resolve(res.data)
+    let data = res.data
+    if (data.status === 1) {
+      let ret = data.data
+      return Promise.resolve(JSON.parse(ret))
+    }
   })
 }
