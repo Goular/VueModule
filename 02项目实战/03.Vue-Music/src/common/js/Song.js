@@ -20,11 +20,28 @@ export default class Song {
     }
     return new Promise((resolve, reject) => {
       getLyric(this.mid).then((res) => {
-        if (res.retcode === ERR_OK) {
-          this.lyric = Base64.decode(res.lyric)
-          resolve(this.lyric)
-        } else {
-          reject(new Error('no lyric'))
+        // if (res.retcode === ERR_OK) {
+        //   this.lyric = Base64.decode(res.lyric)
+        //   resolve(this.lyric)
+        // } else {
+        //   reject(new Error('no lyric'))
+        // }
+
+        if (res.status === 1) {
+          var ret = res.data
+          if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/
+            var matches = ret.match(reg)
+            if (matches) {
+              ret = JSON.parse(matches[1])
+            }
+          }
+          if (ret.retcode === ERR_OK) {
+            this.lyric = Base64.decode(ret.lyric)
+            resolve(this.lyric)
+          } else {
+            reject(new Error('no lyric'))
+          }
         }
       })
     })
