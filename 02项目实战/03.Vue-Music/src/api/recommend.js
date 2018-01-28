@@ -18,7 +18,9 @@ export function getRecommend() {
 
 // 获取歌单内容
 export function getDiscList() {
-  let url = '/api/getDiscList'
+  // 慕课网的项目网址
+  // let url = '/api/getDiscList'
+  let url = 'https://blog.jiagongwu.com/api/music/getDiscList'
   const data = Object.assign({}, commonParams, {
     platform: 'yqq',
     hostUin: 0,
