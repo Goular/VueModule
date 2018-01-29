@@ -9,10 +9,10 @@ import store from './store'
 import 'common/stylus/index.styl'
 
 // 使用WechatFE-vConsole
-import VConsole from 'vconsole'
+// import VConsole from 'vconsole'
 /* eslint-disable no-unused-vars */
-var vConsole = new VConsole()
-console.log('使用了vConsole')
+// var vConsole = new VConsole()
+// console.log('使用了vConsole')
 
 Vue.config.productionTip = false
 
