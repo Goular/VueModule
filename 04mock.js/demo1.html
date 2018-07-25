@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mock.js Demo01</title>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <h1>Mock.js的使用Demo</h1>
+</div>
+</body>
+</html>
+<script>
+    // 设置自定义响应时间
+    // 设置4秒后再响应
+    // Mock.setup({timeout: 4000})
+
+    // 设置1秒至4秒间响应
+    // Mock.setup({timeout: '1000-4000'})
+
+    var obj = {'aa': '11', 'bb': '22', 'cc': '33', 'dd': '44'};
+
+    // Mock响应模板 -- GET使用
+    Mock.mock('http://test.com', {
+        "user|1-3": [{   // 随机生成1到3个数组元素
+            'name': '@cname',  // 中文名称
+            'id|+1': 88,    // 属性值自动加 1，初始值为88
+            'age|18-28': 0,   // 18至28以内随机整数, 0只是用来确定类型
+            'birthday': '@date("yyyy-MM-dd")',  // 日期
+            'city': '@city(true)',   // 中国城市
+            'color': '@color',  // 16进制颜色
+            'isMale|1': true,  // 布尔值
+            'isFat|1-2': true,  // true的概率是1/3
+            'fromObj|2': obj,  // 从obj对象中随机获取2个属性
+            'fromObj2|1-3': obj,  // 从obj对象中随机获取1至3个属性
+            'brother|1': ['jack', 'jim'], // 随机选取 1 个元素
+            'sister|+1': ['jack', 'jim', 'lily'], // array中顺序选取元素作为结果
+            'friends|2': ['jack', 'jim'] // 重复2次属性值生成一个新数组
+        }, {
+            'gf': '@cname'
+        }]
+    });
+    $.ajax({
+        url: 'http://test.com',
+        type: 'get',
+        dataType: 'json'
+    }).done(function (data, status, xhr) {
+        console.log(JSON.stringify(data, null, 4));
+    });
+
+    // Mock响应模板 -- POST使用
+    Mock.mock('http://test.com', function (options) {
+        console.log(options);
+        return Mock.mock({
+            "user|1-3": [{
+                'name': '@cname',
+                'id|+1': 88
+            }
+            ]
+        });
+    });
+    $.ajax({
+        url: 'http://test.com',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            account: 888,
+            pwd: 'abc123'
+        }
+    }).done(function (data, status, xhr) {
+        console.log(JSON.stringify(data, null, 4));
+    });
+
+    // 第一种方法,生成一个email格式的字符串
+    console.log(Mock.mock('@email'));  // 结果: s.uorjeqdou@crqfpdypt.gw
+    // 第二种方法,采用random
+    var Random = Mock.Random;
+    console.log(Random.email());  // 结果: r.quyppn@yit.cv
+
+    // 自定义拓展种类
+    Random.extend({
+        weekday: function (date) {
+            var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return this.pick(weekdays);
+        },
+        sex: function (date) {
+            var sexes = ['男', '女', '中性', '未知'];
+            return this.pick(sexes);
+        }
+    });
+    console.log(Random.weekday());  // 结果: Saturday
+    console.log(Mock.mock('@weekday'));  // 结果: 112Tuesday
+    console.log(Random.sex());  // 结果: 男
+    console.log(Mock.mock('@sex'));  // 结果: 未知
+
+    // mock的template格式校验
+    var tempObj = { "user|1-3": [{ 'name': '@cname', 'id|18-28': 88 } ]};
+    var realData = { "user": [{ 'name': '张三', 'id': 90 } ]};
+    console.log("----------")
+    console.log(Mock.valid(tempObj, realData))
+    console.log("----------")
+
+    // JSON模式
+    // Mock.toJSONSchema(template): 用来把Mock.js风格的数据模板template转换成JSON Schema
+    console.log("************************************")
+    var tempObj = { "user|1-3": [{ 'name': '@cname', 'id|18-28': 88 } ]}
+    console.log(Mock.toJSONSchema(tempObj))
+    console.log("************************************")
+
+</script>
