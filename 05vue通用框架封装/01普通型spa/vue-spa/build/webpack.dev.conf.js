@@ -55,19 +55,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before(app) {
+      // Dev模式下，代理服务器提供对外api输出服务
       app.get('/api/helloWorld', (req, res) => {
-        let url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
-        axios.get(url, {
-          headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-          },
-          params: req.query
-        }).then((response) => {
-          res.json(response.data)
-        }).catch((e) => {
-          console.log(e)
-        })
+        res.json("Welcome To Pcbbao.")
       })
     }
   },
