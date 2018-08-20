@@ -93,6 +93,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           },
           params: req.query
         }).then((response) => {
+          console.dir("555555")
+          console.dir(response.data)
+          console.dir("666666")
           res.json(response.data)
         }).catch((e) => {
           console.log(e)

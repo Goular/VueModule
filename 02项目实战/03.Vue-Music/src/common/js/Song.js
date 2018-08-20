@@ -48,7 +48,7 @@ export default class Song {
   }
 }
 
-const vkey = '6F318B07CB6F0106FC85D168D1DEE8C2BCDC311F20CDCF215AB6329462A267351EAA1935927430609919CF95DF884A0167D01A2F4406B4AF'
+const vkey = 'D731AB7B77749B2AB7B408B91E0520A09FB37ED2083C0EEEEA7ACA97CE6A8934506DA11C9CFE73D39C7CAD55F4E89752342F55F3B058FF91'
 
 export function createSong(musicData) {
   return new Song({
@@ -61,7 +61,7 @@ export function createSong(musicData) {
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
     // url: `http://ws.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=46`
     // 下面这个地址会经常变，只能到QQ音乐去抓这个网址的规律回来，再去拼接
-    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?guid=1375586099&vkey=${vkey}&uin=&fromtag=999`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?guid=597770478&vkey=${vkey}&uin=&fromtag=999`
   })
 }
 
@@ -76,7 +76,7 @@ export function createRecommendSong(musicData) {
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.album.mid}.jpg?max_age=2592000`,
     // url: `http://ws.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=46`
     // 下面这个地址会经常变，只能到QQ音乐去抓这个网址的规律回来，再去拼接
-    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.mid}.m4a?guid=1375586099&vkey=${vkey}&uin=&fromtag=999`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.mid}.m4a?guid=597770478&vkey=${vkey}&uin=0&fromtag=38`
   })
 }
 

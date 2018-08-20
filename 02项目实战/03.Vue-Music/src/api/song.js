@@ -2,8 +2,8 @@ import {commonParams} from './config'
 import axios from 'axios'
 
 export function getLyric(mid) {
-  // const url = '/api/lyric'
-  const url = 'https://blog.jiagongwu.com/api/music/lyric/' + mid
+  const url = '/api/lyric'
+  // const url = 'http://localhost:8080/api/music/lyric/' + mid
 
   const data = Object.assign({}, commonParams, {
     songmid: mid,
